@@ -44,7 +44,7 @@ These are some things I'd like to to in the future:
 * read FRITZ!Box administrator password from environment
 * implement FRITZ!Box authentication for user name and password
 * integrate with cerbot's `--deploy-hook`
-* add --insecure to ignore invalid TLS certificates when talking to FRITZ!Box
+* add `--insecure` to ignore invalid TLS certificates when talking to FRITZ!Box
 * add validation for private keys and certificate before uploading
 * improve detection if certificate installation was successful; currently I'm looking for a string in the response. But maybe we can just wait a little bit and make a https request and check if the certificate is actually being used.
 * set up Travis and use [GoReleaser](https://github.com/goreleaser/goreleaser) to build and publish builds
