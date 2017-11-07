@@ -10,30 +10,24 @@
 [[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
-  packages = ["acme","acme/autocert","curve25519","ed25519","ed25519/internal/edwards25519","nacl/auth","pkcs12/internal/rc2","ssh","ssh/terminal"]
+  packages = ["ssh/terminal"]
   revision = "bd6f299fb381e4c3393d1c4b1f0b94f5e77650c8"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
-  packages = ["unix","windows","windows/registry","windows/svc","windows/svc/debug","windows/svc/eventlog","windows/svc/mgr"]
+  packages = ["unix","windows"]
   revision = "8eb05f94d449fdf134ec24630ce69ada5b469c1c"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/text"
-  packages = ["collate","collate/build","encoding","encoding/charmap","encoding/ianaindex","encoding/internal","encoding/internal/identifier","encoding/japanese","encoding/korean","encoding/simplifiedchinese","encoding/traditionalchinese","encoding/unicode","feature/plural","internal","internal/catmsg","internal/cldrtree","internal/colltab","internal/format","internal/gen","internal/number","internal/stringset","internal/tag","internal/testtext","internal/triegen","internal/ucd","internal/utf8internal","language","message","message/catalog","number","runes","transform","unicode/bidi","unicode/cldr","unicode/norm","unicode/rangetable","unicode/runenames"]
+  packages = ["encoding","encoding/internal","encoding/internal/identifier","encoding/unicode","internal/gen","internal/utf8internal","runes","transform","unicode/cldr"]
   revision = "88f656faf3f37f690df1a32515b479415e1a6769"
-
-[[projects]]
-  branch = "master"
-  name = "golang.org/x/tools"
-  packages = ["go/ast/astutil","go/buildutil","go/loader"]
-  revision = "032dfd515a0b058cc9bc616139b136f923d3924a"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "53b24eaef8265796fdc936156396cdd8e1e0c5dc325d49c2de2582ce502aa18f"
+  inputs-digest = "2e90fd763ff2651b25e85877739dedaf217fe95b5e73188576a7bdcd7b4ae566"
   solver-name = "gps-cdcl"
   solver-version = 1
