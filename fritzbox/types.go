@@ -1,5 +1,11 @@
 package fritzbox
 
+type FritzBox struct {
+	Host     string
+	Insecure bool
+	session  SessionInfo
+}
+
 // SessionInfo holds information about
 // the current authenticated fritzbox session
 //

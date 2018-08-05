@@ -2,6 +2,7 @@ package fritzbox
 
 import (
 	"bytes"
+	"crypto/tls"
 	"fmt"
 	"io"
 	"log"
@@ -19,11 +20,15 @@ var tlsInstallationSuccessMessages = []string{
 	"Das SSL-Zertifikat wurde erfolgreich importiert.", // DE
 }
 
-func getHTTPClient() *http.Client {
+func (fb *FritzBox) getHTTPClient() *http.Client {
 	tr := &http.Transport{
 		MaxIdleConns:       10,
 		IdleConnTimeout:    30 * time.Second,
 		DisableCompression: false,
+	}
+
+	if fb.Insecure {
+		tr.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	}
 
 	client := &http.Client{

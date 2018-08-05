@@ -12,8 +12,10 @@ import (
 )
 
 type configOptions struct {
-	host              string
-	adminPassword     string
+	host          string
+	adminPassword string
+	insecure      bool
+
 	fullchain         string
 	privatekey        string
 	bundle            string
@@ -29,9 +31,19 @@ type configOptions struct {
 func main() {
 	config := setupConfiguration()
 
+	fritz := &fritzbox.FritzBox{Host: config.host, Insecure: config.insecure}
+
+	// Login into FRITZ!box
+	err := fritz.PerformLogin(config.adminPassword)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("Login successful!")
+
 	// Have we been ask to get a certificate from Let's Encrypt?
 	if config.useAcme {
-		// aquire certificate
+		// acquire certificate
 		cert, err := getCertificate(config.acmeServer, config.domain, config.email)
 		if err != nil {
 			log.Fatal(err)
@@ -53,16 +65,8 @@ func main() {
 		config.certificateBundle = io.MultiReader(bytes.NewReader(cert.Certificate), bytes.NewReader(cert.PrivateKey))
 	}
 
-	// Login into FRITZ!box
-	session, err := fritzbox.PerformLogin(config.host, config.adminPassword)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	log.Println("Login successful!")
-
 	// Upload certificate and private key
-	status, response, err := fritzbox.UploadCertificate(config.host, session, config.certificateBundle)
+	status, response, err := fritz.UploadCertificate(config.certificateBundle)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -82,13 +86,14 @@ func setupConfiguration() configOptions {
 
 	flag.StringVar(&config.host, "host", "http://fritz.box", "FRITZ!Box host")
 	flag.StringVar(&config.adminPassword, "password", "", "FRITZ!Box admin password")
+	flag.BoolVar(&config.insecure, "insecure", false, "If host is https:// allow insecure/invalid TLS certificates")
 
-	flag.BoolVar(&config.useAcme, "auto-cert", true, "Use Let's Encrypt to obtain the certificate")
+	flag.BoolVar(&config.useAcme, "auto-cert", false, "Use Let's Encrypt to obtain the certificate")
 	flag.StringVar(&config.acmeServer, "acme-server", "https://acme-v02.api.letsencrypt.org/directory", "Server URL of ACME")
-	flag.BoolVar(&config.saveCert, "save", true, "Save requested certificate and private key to disk")
+	flag.BoolVar(&config.saveCert, "save", false, "Save requested certificate and private key to disk")
 
 	flag.StringVar(&config.domain, "domain", "", "Desired FQDN of your FRITZ!Box")
-	flag.StringVar(&config.email, "email", "", "Mail adress to use for registration at Let's Encrypt")
+	flag.StringVar(&config.email, "email", "", "Mail address to use for registration at Let's Encrypt")
 
 	flag.StringVar(&config.fullchain, "fullchain", "", "path to full certificate chain")
 	flag.StringVar(&config.privatekey, "key", "", "path to private key")
