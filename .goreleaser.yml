@@ -1,0 +1,23 @@
+builds:
+  -
+    env:
+    - CGO_ENABLED=0
+    goos:
+    - linux
+    - darwin
+    - freebsd
+    - windows
+    goarch:
+    - amd64
+    - arm
+archive:
+  replacements:
+    amd64: x86_64
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
