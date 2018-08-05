@@ -21,7 +21,7 @@ func (fb *FritzBox) PerformLogin(adminPassword string) error {
 
 	response := buildResponse(session.Challenge, adminPassword)
 
-	session, err = fetchSessionInfo(client, fb.Host+"/login_sid.lua?sid="+session.SID+"&username=&response="+response)
+	session, err = fetchSessionInfo(client, fb.Host+"/login_sid.lua?&username="+fb.User+"&response="+response)
 	if err != nil {
 		return err
 	}

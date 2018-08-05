@@ -13,6 +13,7 @@ import (
 
 type configOptions struct {
 	host          string
+	user          string
 	adminPassword string
 	insecure      bool
 	tlsPort       int
@@ -34,6 +35,7 @@ func main() {
 
 	fritz := &fritzbox.FritzBox{
 		Host:     config.host,
+		User:     config.user,
 		Insecure: config.insecure,
 		Domain:   config.domain,
 		TLSPort:  config.tlsPort,
@@ -97,6 +99,7 @@ func setupConfiguration() configOptions {
 	var config configOptions
 
 	flag.StringVar(&config.host, "host", "http://fritz.box", "FRITZ!Box host")
+	flag.StringVar(&config.user, "user", "", "FRITZ!Box username")
 	flag.StringVar(&config.adminPassword, "password", "", "FRITZ!Box admin password")
 	flag.BoolVar(&config.insecure, "insecure", false, "If host is https:// allow insecure/invalid TLS certificates")
 
