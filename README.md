@@ -37,7 +37,7 @@ $ fritz-tls --key=./certbot/live/demo.example.com/privkey.pem --fullchain=./cert
 General options are:
 * `--help` to get usage information
 * `--host` to specify how to talk to your FRITZ!Box (default: `http://fritz.box`)
-* `--insecure` to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate installed.
+* `--insecure` to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate.
 * `--tls-port` (default: `443`) TLS port of FRITZ!Box. This is used for certificate validation after installing.
 
 Let's Encrypt specific (`--auto-cert`) options are:
@@ -53,7 +53,6 @@ Options for non `--auto-cert` mode:
 
 These are some things I'd like to to in the future:
 
-* implement FRITZ!Box authentication for user name and password
 * add validation for private keys and certificate before uploading
 * set up Travis and use [GoReleaser](https://github.com/goreleaser/goreleaser) to build and publish builds
 * allow password protected private keys
@@ -63,3 +62,4 @@ These are some things I'd like to to in the future:
 * ~~add ability to use already combined private keys and certificate files~~
 * ~~add basic Let's Encrypt support~~
 * ~~improve detection if certificate installation was successful; currently I'm looking for a string in the response. But maybe we can just wait a little bit and make a https request and check if the certificate is actually being used.~~
+* ~~implement FRITZ!Box authentication for user name and password~~
