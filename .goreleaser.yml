@@ -21,3 +21,10 @@ changelog:
     exclude:
     - '^docs:'
     - '^test:'
+release:
+  github:
+    owner: tisba
+    name: fritz-tls
+  draft: true
+  prerelease: false
+  disable: false
