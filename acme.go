@@ -54,7 +54,10 @@ func getCertificate(caDirURL string, domain string, mail string) (*acme.Certific
 	if err != nil {
 		return nil, err
 	}
-	client.SetChallengeProvider(acme.DNS01, manualDNS)
+	err = client.SetChallengeProvider(acme.DNS01, manualDNS)
+	if err != nil {
+		return nil, err
+	}
 	client.ExcludeChallenges([]acme.Challenge{acme.Challenge("http-01"), acme.Challenge("tls-alpn-01")})
 
 	bundle := true
