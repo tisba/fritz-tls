@@ -12,10 +12,14 @@ fmt:
 
 bootstrap:
 	go get -u github.com/golang/dep/cmd/dep
-	go get -u github.com/kisielk/errcheck
-	go get -u gopkg.in/alecthomas/gometalinter.v1
-	gometalinter.v1 --install
+	go get -u gopkg.in/alecthomas/gometalinter.v2
+	go get -d github.com/goreleaser/goreleaser
+	gometalinter.v2 --install
 	dep ensure
+	go get -d github.com/goreleaser/goreleaser; \
+	  cd ${GOPATH}/src/github.com/goreleaser/goreleaser ;\
+	  dep ensure -vendor-only ;\
+	  make setup build
 
 lint:
-	gometalinter.v1 ./... --vendor .
+	gometalinter.v2 ./... --vendor .
