@@ -153,7 +153,7 @@ func setupConfiguration() configOptions {
 	}
 
 	if config.adminPassword == "" {
-		log.Fatal("FRITZ!Box admin password requried!")
+		log.Fatal("FRITZ!Box admin password required!")
 	}
 
 	return config
