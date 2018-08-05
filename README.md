@@ -19,37 +19,47 @@ go get -u github.com/tisba/fritz-tls
 
 ## Usage
 
+```console
+$ fritz-tls --auto-cert --domain fritz.example.com --email letsencrypt@example.com
+```
+
+Done :)
+
+You can also provide a certificate bundle (cert + private key) directly so that can be installed:
+
 1. obtain your TLS certificate, e.g. via [Let’s Encrypt](https://letsencrypt.org/).
 1. install the newly generated certificate:
 
-```
-fritz-tls --key=./certbot/live/demo.example.com/privkey.pem --fullchain=./certbot/live/demo.example.com/fullchain.pem
+```console
+$ fritz-tls --key=./certbot/live/demo.example.com/privkey.pem --fullchain=./certbot/live/demo.example.com/fullchain.pem
 ```
 
-Other options are
-
+General options are:
 * `--help` to get usage information
-* `--host` to specify a different host for your FRITZ!Box (default: `http://fritz.box`)
+* `--host` to specify how to talk to your FRITZ!Box (default: `http://fritz.box`)
+* `--insecure` to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate installed.
+* `--tls-port` (default: `443`) TLS port of FRITZ!Box. This is used for certificate validation after installing.
 
+Let's Encrypt specific (`--auto-cert`) options are:
+* `--domain` the domain you want to have your certificate generated for
+* `--email` your mail address you want to have registered with Let’s Encrypt
+* `--save` to save generated private key and acquired certificate
 
-To give you an idea, this is roughly the process I currently use (I prefer the DNS-based challenge):
-
-```
-certbot -d demo.example.com --manual --preferred-challenges dns certonly && \
-  fritz-tls --key=./live/demo.example.com/privkey.pem --fullchain=./live/demo.example.com/fullchain.pem
-```
+Options for non `--auto-cert` mode:
+* `--bundle` as an alternative for `--key` and `--fullchain`. The bundle where the password-less private key and certificate are both present.
 
 
 ## TODOs and Ideas
 
 These are some things I'd like to to in the future:
 
-* read FRITZ!Box administrator password from environment
 * implement FRITZ!Box authentication for user name and password
-* integrate with cerbot's `--deploy-hook`
-* add `--insecure` to ignore invalid TLS certificates when talking to FRITZ!Box
 * add validation for private keys and certificate before uploading
-* improve detection if certificate installation was successful; currently I'm looking for a string in the response. But maybe we can just wait a little bit and make a https request and check if the certificate is actually being used.
 * set up Travis and use [GoReleaser](https://github.com/goreleaser/goreleaser) to build and publish builds
-* add ability to use already combined private keys and certificate files
 * allow password protected private keys
+* allow other then DNS-01 Let's Encrypt challenges and make [legos](https://github.com/xenolf/lego) DNS providers available to make things even more automated!
+* ~~add `--insecure` to ignore invalid TLS certificates when talking to FRITZ!Box~~
+* ~~read FRITZ!Box administrator password from environment~~
+* ~~add ability to use already combined private keys and certificate files~~
+* ~~add basic Let's Encrypt support~~
+* ~~improve detection if certificate installation was successful; currently I'm looking for a string in the response. But maybe we can just wait a little bit and make a https request and check if the certificate is actually being used.~~
