@@ -3,5 +3,7 @@ fritz-tls
 build/
 dist/
 
+*.pem
+
 # Sandbox
 sandbox

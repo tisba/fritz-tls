@@ -6,33 +6,36 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
 // PerformLogin performs a login and returns SessionInfo including
 // the session id (SID) on success
-func PerformLogin(host string, adminPassword string) (SessionInfo, error) {
-	session, err := fetchSessionInfo(host + "/login_sid.lua")
+func (fb *FritzBox) PerformLogin(adminPassword string) error {
+	client := fb.getHTTPClient()
+
+	session, err := fetchSessionInfo(client, fb.Host+"/login_sid.lua")
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
-	response := buildReponse(session.Challenge, adminPassword)
+	response := buildResponse(session.Challenge, adminPassword)
 
-	session, err = fetchSessionInfo(host + "/login_sid.lua?sid=" + session.SID + "&username=&response=" + response)
+	session, err = fetchSessionInfo(client, fb.Host+"/login_sid.lua?sid="+session.SID+"&username=&response="+response)
 	if err != nil {
-		return SessionInfo{}, err
+		return err
 	}
 	if session.SID == "0000000000000000" {
-		return SessionInfo{}, errors.New("Login not successful")
+		return errors.New("Login not successful")
 	}
 
-	return session, nil
+	fb.session = session
+
+	return nil
 }
 
-func fetchSessionInfo(url string) (SessionInfo, error) {
-	resp, err := http.Get(url)
+func fetchSessionInfo(client *http.Client, url string) (SessionInfo, error) {
+	resp, err := client.Get(url)
 	if err != nil {
 		return SessionInfo{}, err
 	}
@@ -53,7 +56,7 @@ func fetchSessionInfo(url string) (SessionInfo, error) {
 	return sessionInfo, nil
 }
 
-func buildReponse(challenge string, password string) string {
+func buildResponse(challenge string, password string) string {
 	challengePassword := utf8ToUtf16(challenge + "-" + password)
 
 	md5Response := md5.Sum([]byte(challengePassword)) // nolint: gas

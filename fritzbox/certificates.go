@@ -3,23 +3,25 @@ package fritzbox
 import (
 	"io"
 	"io/ioutil"
+	"net/http"
+	"strconv"
 	"strings"
 )
 
 // UploadCertificate uploads certificate and privatekey, provided via data
 // and installs it
-func UploadCertificate(host string, session SessionInfo, data io.Reader) (bool, string, error) {
+func (fb *FritzBox) UploadCertificate(data io.Reader) (bool, string, error) {
 	extraParams := [][]string{
-		{"sid", session.SID}, // it's important that sid is the first argument!
+		{"sid", fb.session.SID}, // it's important that sid is the first argument!
 		{"BoxCertPassword", ""},
 	}
 
-	request, err := fileUploadRequest(host+"/cgi-bin/firmwarecfg", "POST", extraParams, "BoxCertImportFile", "boxcert.cer", "application/x-x509-ca-cert", data)
+	request, err := fileUploadRequest(fb.Host+"/cgi-bin/firmwarecfg", "POST", extraParams, "BoxCertImportFile", "boxcert.cer", "application/x-x509-ca-cert", data)
 	if err != nil {
 		return false, "", err
 	}
 
-	client := getHTTPClient()
+	client := fb.getHTTPClient()
 
 	response, err := client.Do(request)
 	if err != nil {
@@ -33,6 +35,18 @@ func UploadCertificate(host string, session SessionInfo, data io.Reader) (bool, 
 	}
 
 	return checkTLSInstallSuccess(body), string(body), nil
+}
+
+// VerifyCertificate uses Go's http.Get with TLS verification
+// to see if a valid certificate is actually installed.
+func (fb *FritzBox) VerifyCertificate() (bool, error) {
+	_, err := http.Get("https://" + fb.Domain + ":" + strconv.Itoa(fb.TLSPort))
+
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
 }
 
 func checkTLSInstallSuccess(response []byte) bool {
