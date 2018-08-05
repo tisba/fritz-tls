@@ -11,6 +11,12 @@ import (
 	"github.com/tisba/fritz-tls/fritzbox"
 )
 
+var (
+	version string
+	date    string
+	commit  string
+)
+
 type configOptions struct { // nolint: maligned
 	host          string
 	user          string
@@ -28,6 +34,8 @@ type configOptions struct { // nolint: maligned
 	saveCert   bool
 	domain     string
 	email      string
+
+	version bool
 }
 
 func main() {
@@ -114,7 +122,15 @@ func setupConfiguration() configOptions {
 	flag.StringVar(&config.fullchain, "fullchain", "", "path to full certificate chain")
 	flag.StringVar(&config.privatekey, "key", "", "path to private key")
 	flag.StringVar(&config.bundle, "bundle", "", "path to certificate-private bundle")
+
+	flag.BoolVar(&config.version, "version", false, "Print version and exit")
+
 	flag.Parse()
+
+	if config.version {
+		log.Printf("fritz-tls %s (%s, %s)", version, date, commit)
+		os.Exit(0)
+	}
 
 	if config.useAcme {
 		if config.acmeServer == "" {
