@@ -1,3 +1,6 @@
+[ ![Travis CI Status](https://travis-ci.org/tisba/fritz-tls.svg?branch=master)](https://travis-ci.org/tisba/fritz-tls)
+[ ![Go Report Card](https://goreportcard.com/badge/github.com/tisba/fritz-tls)](https://goreportcard.com/report/github.com/tisba/fritz-tls)
+
 # FRITZ!Box TLS Certificate Installer
 
 This is a little pet project to install TLS certificates into your [FRITZ!Box](https://en.wikipedia.org/wiki/Fritz!Box). I use [Let’s Encrypt](https://letsencrypt.org/) to get free certificates and I got tiered using this tedious process to update the certs all the time. So I started to poke at my FRITZ!Box Fon WLAN 7390 and now it is automated!
@@ -53,9 +56,8 @@ Options for non `--auto-cert` mode:
 
 These are some things I'd like to to in the future:
 
-* add validation for private keys and certificate before uploading
-* set up Travis and use [GoReleaser](https://github.com/goreleaser/goreleaser) to build and publish builds
-* allow password protected private keys
+* add validation for private keys and certificate before uploading (avoid trying to upload garbage)
+* allow password protected private keys (when not provisioned by LE)
 * allow other then DNS-01 Let's Encrypt challenges and make [legos](https://github.com/xenolf/lego) DNS providers available to make things even more automated!
 * ~~add `--insecure` to ignore invalid TLS certificates when talking to FRITZ!Box~~
 * ~~read FRITZ!Box administrator password from environment~~
@@ -63,3 +65,4 @@ These are some things I'd like to to in the future:
 * ~~add basic Let's Encrypt support~~
 * ~~improve detection if certificate installation was successful; currently I'm looking for a string in the response. But maybe we can just wait a little bit and make a https request and check if the certificate is actually being used.~~
 * ~~implement FRITZ!Box authentication for user name and password~~
+* ~~set up Travis and use [GoReleaser](https://github.com/goreleaser/goreleaser) to build and publish builds~~
