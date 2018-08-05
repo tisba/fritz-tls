@@ -3,34 +3,34 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f81c8d7354cc0c6340f2f7a48724ee6c2b3db3e918ecd441c985b4d2d97dd3e7"
+  digest = "1:0778dc7fce1b4669a8bfa7ae506ec1f595b6ab0f8989c1c0d22a8ca1144e9972"
   name = "github.com/howeyc/gopass"
   packages = ["."]
-  pruneopts = ""
+  pruneopts = "UT"
   revision = "bf9dde6d0d2c004a008c27aaee91170c786f6db8"
 
 [[projects]]
   branch = "master"
-  digest = "1:b5f803d43c724e40316ab975036753d74e56d3e77a3f6a42544d7e7932985253"
+  digest = "1:3f3a05ae0b95893d90b9b3b5afdb79a9b3d96e4e36e099d841ae602e4aca0da8"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  pruneopts = ""
+  pruneopts = "UT"
   revision = "56440b844dfe139a8ac053f4ecac0b20b79058f4"
 
 [[projects]]
   branch = "master"
-  digest = "1:dbad75a5b01c2d1ae7a42c953179265343b6f4b6e935c0354380d3546f76df15"
+  digest = "1:1fc10d19ed0f295d8a8275e4f7a2f85a39a26be0796503f1a1fb3cd0ffacbdc5"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
-  pruneopts = ""
+  pruneopts = "UT"
   revision = "0ffbfd41fbef8ffcf9b62b0b0aa3a5873ed7a4fe"
 
 [[projects]]
   branch = "master"
-  digest = "1:4ce1347bdb0a9b955f0b51191eba232a340dedab779bc606c25d0196b866cc12"
+  digest = "1:a3e7de7e40061f055dc13ae1f85f3efb14add6539be7d299a550b248ae11c416"
   name = "golang.org/x/text"
   packages = [
     "encoding",
@@ -43,7 +43,7 @@
     "transform",
     "unicode/cldr",
   ]
-  pruneopts = ""
+  pruneopts = "UT"
   revision = "cb6730876b985e110843c1842a7a63a63677cf08"
 
 [solve-meta]
