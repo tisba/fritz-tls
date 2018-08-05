@@ -1,13 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"flag"
-	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 
-	"github.com/howeyc/gopass"
 	"github.com/tisba/fritz-tls/fritzbox"
 )
 
@@ -16,12 +16,44 @@ type configOptions struct {
 	adminPassword     string
 	fullchain         string
 	privatekey        string
+	bundle            string
 	certificateBundle io.Reader
+
+	useAcme    bool
+	acmeServer string
+	saveCert   bool
+	domain     string
+	email      string
 }
 
 func main() {
 	config := setupConfiguration()
 
+	// Have we been ask to get a certificate from Let's Encrypt?
+	if config.useAcme {
+		// aquire certificate
+		cert, err := getCertificate(config.acmeServer, config.domain, config.email)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// save certificate and private key to disk if requested
+		if config.saveCert {
+			err := ioutil.WriteFile(config.domain+"-key.pem", cert.PrivateKey, 0644)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			err = ioutil.WriteFile(config.domain+"-cert.pem", cert.Certificate, 0644)
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
+
+		config.certificateBundle = io.MultiReader(bytes.NewReader(cert.Certificate), bytes.NewReader(cert.PrivateKey))
+	}
+
+	// Login into FRITZ!box
 	session, err := fritzbox.PerformLogin(config.host, config.adminPassword)
 	if err != nil {
 		log.Fatal(err)
@@ -29,15 +61,17 @@ func main() {
 
 	log.Println("Login successful!")
 
+	// Upload certificate and private key
 	status, response, err := fritzbox.UploadCertificate(config.host, session, config.certificateBundle)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	if status {
-		log.Println("TLS certificate installation successful!")
+		log.Println("TLS certificate upload successful!")
+		// TODO add a check if the certificate is actually in use
 	} else {
-		log.Println("TLS certificate installation not successful, check response")
+		log.Println("TLS certificate upload not successful, check response")
 		log.Println(response)
 		os.Exit(1)
 	}
@@ -46,41 +80,60 @@ func main() {
 func setupConfiguration() configOptions {
 	var config configOptions
 
-	flag.StringVar(&config.host, "host", "http://fritz.box", "FritzBox host")
-	flag.StringVar(&config.adminPassword, "password", "", "Admin password")
+	flag.StringVar(&config.host, "host", "http://fritz.box", "FRITZ!Box host")
+	flag.StringVar(&config.adminPassword, "password", "", "FRITZ!Box admin password")
+
+	flag.BoolVar(&config.useAcme, "auto-cert", true, "Use Let's Encrypt to obtain the certificate")
+	flag.StringVar(&config.acmeServer, "acme-server", "https://acme-v02.api.letsencrypt.org/directory", "Server URL of ACME")
+	flag.BoolVar(&config.saveCert, "save", true, "Save requested certificate and private key to disk")
+
+	flag.StringVar(&config.domain, "domain", "", "Desired FQDN of your FRITZ!Box")
+	flag.StringVar(&config.email, "email", "", "Mail adress to use for registration at Let's Encrypt")
+
 	flag.StringVar(&config.fullchain, "fullchain", "", "path to full certificate chain")
 	flag.StringVar(&config.privatekey, "key", "", "path to private key")
+	flag.StringVar(&config.bundle, "bundle", "", "path to certificate-private bundle")
 	flag.Parse()
 
-	config.certificateBundle = io.MultiReader(readerFromFile(config.fullchain), readerFromFile(config.privatekey))
+	if config.useAcme {
+		if config.acmeServer == "" {
+			log.Fatal("--acme-server is required with --auto-cert!")
+		}
 
-	if config.adminPassword == "" {
-		config.adminPassword = getPasswdFromStdin()
+		if config.domain == "" {
+			log.Fatal("--domain is required with --auto-cert!")
+		}
 
-		if config.adminPassword == "" {
-			log.Fatal("Admin password requried!")
+		if config.email == "" {
+			log.Fatal("--email is required with --auto-cert!")
+		}
+
+		if config.bundle != "" {
+			log.Fatal("--auto-cert, --bundle, --fullchain and --privatekey are mutually exclusive!")
+		}
+	} else {
+		if config.bundle != "" {
+			config.certificateBundle = readerFromFile(config.bundle)
+		} else {
+			if config.fullchain == "" || config.privatekey == "" {
+				log.Fatal("--fullchain and --privatekey are both required, unless --bundle is used!")
+			}
+
+			config.certificateBundle = io.MultiReader(readerFromFile(config.fullchain), readerFromFile(config.privatekey))
 		}
 	}
 
+	if config.adminPassword == "" {
+		config.adminPassword = os.Getenv("FRITZTLS_ADMIN_PASS")
+	}
+
+	if config.adminPassword == "" {
+		config.adminPassword = getPasswdFromStdin()
+	}
+
+	if config.adminPassword == "" {
+		log.Fatal("FRITZ!Box admin password requried!")
+	}
+
 	return config
-}
-
-func getPasswdFromStdin() string {
-	fmt.Printf("Password (will be masked): ")
-	pass, err := gopass.GetPasswdMasked()
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return string(pass)
-}
-
-func readerFromFile(path string) io.Reader {
-	reader, err := os.OpenFile(path, os.O_RDONLY, 0600)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return reader
 }
