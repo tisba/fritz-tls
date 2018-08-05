@@ -3,6 +3,8 @@ package fritzbox
 import (
 	"io"
 	"io/ioutil"
+	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -33,6 +35,18 @@ func (fb *FritzBox) UploadCertificate(data io.Reader) (bool, string, error) {
 	}
 
 	return checkTLSInstallSuccess(body), string(body), nil
+}
+
+// VerifyCertificate uses Go's http.Get with TLS verification
+// to see if a valid certificate is actually installed.
+func (fb *FritzBox) VerifyCertificate() (bool, error) {
+	_, err := http.Get("https://" + fb.Domain + ":" + strconv.Itoa(fb.TLSPort))
+
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
 }
 
 func checkTLSInstallSuccess(response []byte) bool {

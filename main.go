@@ -15,6 +15,7 @@ type configOptions struct {
 	host          string
 	adminPassword string
 	insecure      bool
+	tlsPort       int
 
 	fullchain         string
 	privatekey        string
@@ -31,7 +32,12 @@ type configOptions struct {
 func main() {
 	config := setupConfiguration()
 
-	fritz := &fritzbox.FritzBox{Host: config.host, Insecure: config.insecure}
+	fritz := &fritzbox.FritzBox{
+		Host:     config.host,
+		Insecure: config.insecure,
+		Domain:   config.domain,
+		TLSPort:  config.tlsPort,
+	}
 
 	// Login into FRITZ!box
 	err := fritz.PerformLogin(config.adminPassword)
@@ -73,11 +79,17 @@ func main() {
 
 	if status {
 		log.Println("TLS certificate upload successful!")
-		// TODO add a check if the certificate is actually in use
+
+		suc, err := fritz.VerifyCertificate()
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if suc {
+			log.Println("TLS certificate installation verified!")
+		}
 	} else {
-		log.Println("TLS certificate upload not successful, check response")
-		log.Println(response)
-		os.Exit(1)
+		log.Fatalf("TLS certificate upload not successful, check response: %s\n", response)
 	}
 }
 
@@ -93,6 +105,7 @@ func setupConfiguration() configOptions {
 	flag.BoolVar(&config.saveCert, "save", false, "Save requested certificate and private key to disk")
 
 	flag.StringVar(&config.domain, "domain", "", "Desired FQDN of your FRITZ!Box")
+	flag.IntVar(&config.tlsPort, "tls-port", 443, "TLS port used by FRITZ!Box (used for verification)")
 	flag.StringVar(&config.email, "email", "", "Mail address to use for registration at Let's Encrypt")
 
 	flag.StringVar(&config.fullchain, "fullchain", "", "path to full certificate chain")

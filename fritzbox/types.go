@@ -1,8 +1,11 @@
 package fritzbox
 
+// FritzBox holds general information about the FRITZ!Box to talk to
 type FritzBox struct {
 	Host     string
 	Insecure bool
+	Domain   string
+	TLSPort  int
 	session  SessionInfo
 }
 
