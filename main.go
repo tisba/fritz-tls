@@ -11,7 +11,7 @@ import (
 	"github.com/tisba/fritz-tls/fritzbox"
 )
 
-type configOptions struct {
+type configOptions struct { // nolint: maligned
 	host          string
 	user          string
 	adminPassword string
