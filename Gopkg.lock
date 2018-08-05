@@ -18,7 +18,7 @@
   version = "v1.0.8"
 
 [[projects]]
-  digest = "1:68c8346075ba8147d905e9e56ef1765593fdc235d28629f7007bdb698388ff4c"
+  digest = "1:5957fa019e032db3ee0f9664e7c7d00256ca54399c7e4db8acb4ff677156f1ad"
   name = "github.com/xenolf/lego"
   packages = [
     "acme",
@@ -30,7 +30,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:b3b66bb4339f719baf5089c0ab8558110e012e5520ae9c4727558261507398c9"
+  digest = "1:989d46985e1793b9f81fcc96ab841287556d07c3360716c9dc4cf0b673e51562"
   name = "golang.org/x/crypto"
   packages = [
     "ed25519",
@@ -43,7 +43,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:219d8cb001b7b55a93dd8b304e2c94687303926609b9996897f2aeb9ee073778"
+  digest = "1:ca1b9c3665e789225f61649847c796439a79b2cb9f1e5b966e55637ebeeb0fcf"
   name = "golang.org/x/net"
   packages = [
     "bpf",
@@ -57,7 +57,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:1fc10d19ed0f295d8a8275e4f7a2f85a39a26be0796503f1a1fb3cd0ffacbdc5"
+  digest = "1:bdd70b95d2f0faaad6d9e259aad84738c6bdeb8f45245be6487e88df45f5a0f1"
   name = "golang.org/x/sys"
   packages = [
     "unix",
@@ -68,7 +68,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a3e7de7e40061f055dc13ae1f85f3efb14add6539be7d299a550b248ae11c416"
+  digest = "1:0815449d67ae5effca8c713e0a3f4f59f87ce891a1828f38cf6bbfd7ae94aa25"
   name = "golang.org/x/text"
   packages = [
     "encoding",
@@ -85,7 +85,7 @@
   revision = "cb6730876b985e110843c1842a7a63a63677cf08"
 
 [[projects]]
-  digest = "1:b20e19ac63553e6de37b229c66763b71cfc0b6defd1e3c402ae371d37c5be640"
+  digest = "1:854bc058ebb4ff58a262e2c324d6582c344575489a01b47a6d083ae3f91f4daa"
   name = "gopkg.in/square/go-jose.v2"
   packages = [
     ".",
