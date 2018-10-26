@@ -10,40 +10,41 @@
   revision = "bf9dde6d0d2c004a008c27aaee91170c786f6db8"
 
 [[projects]]
-  digest = "1:463e4140189f8194f9121ca1c7fe3b8e9e9a2ab3d949b43c835c21034927dc62"
+  digest = "1:c22d250c583ec1136ecad8b74a43f408c08ddbbcbae715341ec4a49f332628e0"
   name = "github.com/miekg/dns"
   packages = ["."]
   pruneopts = "UT"
-  revision = "5a2b9fab83ff0f8bfc99684bd5f43a37abe560f1"
-  version = "v1.0.8"
+  revision = "915ca3d5ffd945235828a097c917311a9d86ebb4"
+  version = "v1.0.14"
 
 [[projects]]
-  digest = "1:5957fa019e032db3ee0f9664e7c7d00256ca54399c7e4db8acb4ff677156f1ad"
+  digest = "1:6531996b0d078f3bfbeef883dd4b8c119bf73ca9075ab2b868a822fb7eeeded7"
   name = "github.com/xenolf/lego"
   packages = [
     "acme",
     "log",
   ]
   pruneopts = "UT"
-  revision = "27e0f97c9df37cad8c4ba0ef1d133fa57afb7469"
-  version = "v1.0.1"
+  revision = "d775f2bcd5fc2e7ca52d868f9d00a1df327f0b44"
+  version = "v1.1.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:989d46985e1793b9f81fcc96ab841287556d07c3360716c9dc4cf0b673e51562"
+  digest = "1:1683f109d69f4a055621eeb7f396d37121c1d2a259b3a77030c3ce5a1b8c92e9"
   name = "golang.org/x/crypto"
   packages = [
     "ed25519",
     "ed25519/internal/edwards25519",
     "ocsp",
+    "pbkdf2",
     "ssh/terminal",
   ]
   pruneopts = "UT"
-  revision = "56440b844dfe139a8ac053f4ecac0b20b79058f4"
+  revision = "e84da0312774c21d64ee2317962ef669b27ffb41"
 
 [[projects]]
   branch = "master"
-  digest = "1:ca1b9c3665e789225f61649847c796439a79b2cb9f1e5b966e55637ebeeb0fcf"
+  digest = "1:40a3cfcb660b2f6354f669eb8cbea46b5a308b42f349782147301ab66fb57184"
   name = "golang.org/x/net"
   packages = [
     "bpf",
@@ -53,18 +54,18 @@
     "ipv6",
   ]
   pruneopts = "UT"
-  revision = "f4c29de78a2a91c00474a2e689954305c350adf9"
+  revision = "9b4f9f5ad5197c79fd623a3638e70d8b26cef344"
 
 [[projects]]
   branch = "master"
-  digest = "1:bdd70b95d2f0faaad6d9e259aad84738c6bdeb8f45245be6487e88df45f5a0f1"
+  digest = "1:718ce2cce5e0ea56394a3ad854c33ccaecba93604aaab0df6b7b7e1f50f02b1a"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "0ffbfd41fbef8ffcf9b62b0b0aa3a5873ed7a4fe"
+  revision = "2772b66316d2c587efeb188dcd5ebc6987656e84"
 
 [[projects]]
   branch = "master"
@@ -82,10 +83,10 @@
     "unicode/cldr",
   ]
   pruneopts = "UT"
-  revision = "cb6730876b985e110843c1842a7a63a63677cf08"
+  revision = "4d1c5fb19474adfe9562c9847ba425e7da817e81"
 
 [[projects]]
-  digest = "1:854bc058ebb4ff58a262e2c324d6582c344575489a01b47a6d083ae3f91f4daa"
+  digest = "1:26a278a34e30cc8fbd09d5f7474488ac4cbad325c2b592b30e76e5d7d2fc1f10"
   name = "gopkg.in/square/go-jose.v2"
   packages = [
     ".",
@@ -93,8 +94,8 @@
     "json",
   ]
   pruneopts = "UT"
-  revision = "349dc03548930652802aadc09fb126e2b7cb6d80"
-  version = "v2.1.7"
+  revision = "ef984e69dd356202fd4e4910d4d9c24468bdf0b8"
+  version = "v2.1.9"
 
 [solve-meta]
   analyzer-name = "dep"
