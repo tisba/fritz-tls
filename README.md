@@ -59,6 +59,7 @@ These are some things I'd like to to in the future:
 * add validation for private keys and certificate before uploading (avoid trying to upload garbage)
 * allow password protected private keys (when not provisioned by LE)
 * allow other then DNS-01 Let's Encrypt challenges and make [legos](https://github.com/xenolf/lego) DNS providers available to make things even more automated!
+* ask for `--user` if not provided and/or add `--pw-only` flag
 * ~~add `--insecure` to ignore invalid TLS certificates when talking to FRITZ!Box~~
 * ~~read FRITZ!Box administrator password from environment~~
 * ~~add ability to use already combined private keys and certificate files~~
