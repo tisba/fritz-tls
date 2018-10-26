@@ -1,7 +1,7 @@
 sudo: false
 language: go
 go:
-- 1.10.3
+- 1.11.1
 deploy:
 - provider: script
   skip_cleanup: true
