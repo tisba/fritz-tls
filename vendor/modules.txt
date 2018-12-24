@@ -1,0 +1,36 @@
+# github.com/howeyc/gopass v0.0.0-20170109162249-bf9dde6d0d2c
+github.com/howeyc/gopass
+# github.com/miekg/dns v1.0.14
+github.com/miekg/dns
+# github.com/tisba/fritz-tls v0.2.0
+github.com/tisba/fritz-tls/fritzbox
+# github.com/xenolf/lego v1.1.0
+github.com/xenolf/lego/acme
+github.com/xenolf/lego/log
+# golang.org/x/crypto v0.0.0-20181025213731-e84da0312774
+golang.org/x/crypto/ssh/terminal
+golang.org/x/crypto/ocsp
+golang.org/x/crypto/ed25519
+golang.org/x/crypto/pbkdf2
+golang.org/x/crypto/ed25519/internal/edwards25519
+# golang.org/x/net v0.0.0-20181023162649-9b4f9f5ad519
+golang.org/x/net/ipv4
+golang.org/x/net/ipv6
+golang.org/x/net/bpf
+golang.org/x/net/internal/iana
+golang.org/x/net/internal/socket
+# golang.org/x/sys v0.0.0-20181026144532-2772b66316d2
+golang.org/x/sys/unix
+golang.org/x/sys/windows
+# golang.org/x/text v0.0.0-20181010134911-4d1c5fb19474
+golang.org/x/text/encoding/unicode
+golang.org/x/text/transform
+golang.org/x/text/encoding
+golang.org/x/text/encoding/internal
+golang.org/x/text/encoding/internal/identifier
+golang.org/x/text/internal/utf8internal
+golang.org/x/text/runes
+# gopkg.in/square/go-jose.v2 v2.1.9
+gopkg.in/square/go-jose.v2
+gopkg.in/square/go-jose.v2/cipher
+gopkg.in/square/go-jose.v2/json
