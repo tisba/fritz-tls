@@ -19,7 +19,6 @@ var (
 
 type configOptions struct { // nolint: maligned
 	host          string
-	user          string
 	adminPassword string
 	insecure      bool
 	tlsPort       int
@@ -29,11 +28,12 @@ type configOptions struct { // nolint: maligned
 	bundle            string
 	certificateBundle io.Reader
 
-	useAcme    bool
-	acmeServer string
-	saveCert   bool
-	domain     string
-	email      string
+	useAcme         bool
+	acmeServer      string
+	saveCert        bool
+	domain          string
+	email           string
+	dnsProviderName string
 
 	version bool
 }
@@ -43,7 +43,6 @@ func main() {
 
 	fritz := &fritzbox.FritzBox{
 		Host:     config.host,
-		User:     config.user,
 		Insecure: config.insecure,
 		Domain:   config.domain,
 		TLSPort:  config.tlsPort,
@@ -60,7 +59,7 @@ func main() {
 	// Have we been ask to get a certificate from Let's Encrypt?
 	if config.useAcme {
 		// acquire certificate
-		cert, err := getCertificate(config.acmeServer, config.domain, config.email)
+		cert, err := getCertificate(config.acmeServer, config.domain, config.email, config.dnsProviderName)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -107,12 +106,12 @@ func setupConfiguration() configOptions {
 	var config configOptions
 
 	flag.StringVar(&config.host, "host", "http://fritz.box", "FRITZ!Box host")
-	flag.StringVar(&config.user, "user", "", "FRITZ!Box username")
 	flag.StringVar(&config.adminPassword, "password", "", "FRITZ!Box admin password")
 	flag.BoolVar(&config.insecure, "insecure", false, "If host is https:// allow insecure/invalid TLS certificates")
 
 	flag.BoolVar(&config.useAcme, "auto-cert", false, "Use Let's Encrypt to obtain the certificate")
 	flag.StringVar(&config.acmeServer, "acme-server", "https://acme-v02.api.letsencrypt.org/directory", "Server URL of ACME")
+	flag.StringVar(&config.dnsProviderName, "dns-provider", "manual", "name of DNS provider to use")
 	flag.BoolVar(&config.saveCert, "save", false, "Save requested certificate and private key to disk")
 
 	flag.StringVar(&config.domain, "domain", "", "Desired FQDN of your FRITZ!Box")

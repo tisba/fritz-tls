@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 )
 
 // PerformLogin performs a login and returns SessionInfo including
@@ -21,7 +22,14 @@ func (fb *FritzBox) PerformLogin(adminPassword string) error {
 
 	response := buildResponse(session.Challenge, adminPassword)
 
-	session, err = fetchSessionInfo(client, fb.Host+"/login_sid.lua?&username="+fb.User+"&response="+response)
+	url, err := url.Parse(fb.Host)
+	if err != nil {
+		return err
+	}
+	user := url.User.Username()
+	url.User = nil
+
+	session, err = fetchSessionInfo(client, url.String()+"/login_sid.lua?&username="+user+"&response="+response)
 	if err != nil {
 		return err
 	}

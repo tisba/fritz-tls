@@ -1,7 +1,7 @@
-<!-- markdownlint-disable MD039 -->
+<!-- markdownlint-disable MD039 MD041 -->
 [ ![Travis CI Status](https://travis-ci.org/tisba/fritz-tls.svg?branch=master)](https://travis-ci.org/tisba/fritz-tls)
 [ ![Go Report Card](https://goreportcard.com/badge/github.com/tisba/fritz-tls)](https://goreportcard.com/report/github.com/tisba/fritz-tls)
-<!-- markdownlint-enable MD039 -->
+<!-- markdownlint-enable MD039 MD041 -->
 
 # FRITZ!Box TLS Certificate Installer
 
@@ -14,13 +14,11 @@ Although it should work with other versions as well, it is only tested with:
 
 In case you want to know how to do that manually, take a look at AVM's [knowledge base article](https://en.avm.de/service/fritzbox/fritzbox-7390/knowledge-base/publication/show/1525_Importing-your-own-certificate-to-the-FRITZ-Box/).
 
-
 ## Installation
 
 ```console
 go get -u github.com/tisba/fritz-tls
 ```
-
 
 ## Usage
 
@@ -42,20 +40,20 @@ fritz-tls --key=./certbot/live/demo.example.com/privkey.pem --fullchain=./certbo
 General options are:
 
 * `--help` to get usage information
-* `--host` to specify how to talk to your FRITZ!Box (default: `http://fritz.box`)
-* `--insecure` to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate.
+* `--host` (default: `http://fritz.box`) to specify how to talk to your FRITZ!Box. If you want to login with username and password, specify the user like this: `--host http://tisba@fritz.box`.
+* `--insecure` (optional) to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate.
 * `--tls-port` (default: `443`) TLS port of FRITZ!Box. This is used for certificate validation after installing.
 
 Let's Encrypt specific (`--auto-cert`) options are:
 
 * `--domain` the domain you want to have your certificate generated for
 * `--email` your mail address you want to have registered with Let’s Encrypt
-* `--save` to save generated private key and acquired certificate
+* `--save` (optional) to save generated private key and acquired certificate
+* `--dns-provider` (default `manual`) to specify one of [lego's](https://github.com/xenolf/lego/tree/master/providers/dns) supported DNS providers. Note that you might have to set environment variables to configure your provider, e.g. `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_HOSTED_ZONE_ID`. I use name servers by AWS/Route53 and [inwx](https://github.com/xenolf/lego/blob/master/providers/dns/inwx/inwx.go), so I have to provide `INWX_USER`, `INWX_PASSWORD`. I'm not sure if there is a overview, so for now you have to consult the [source](https://github.com/xenolf/lego/tree/master/providers/dns).
 
 Options for non `--auto-cert` mode:
 
 * `--bundle` as an alternative for `--key` and `--fullchain`. The bundle where the password-less private key and certificate are both present.
-
 
 ## TODOs and Ideas
 
@@ -63,8 +61,8 @@ These are some things I'd like to to in the future:
 
 * add validation for private keys and certificate before uploading (avoid trying to upload garbage)
 * allow password protected private keys (when not provisioned by LE)
-* allow other then DNS-01 Let's Encrypt challenges and make [legos](https://github.com/xenolf/lego) DNS providers available to make things even more automated!
-* ask for `--user` if not provided and/or add `--pw-only` flag
+* ~~ask for `--user` if not provided (may be empty then) and/or add `--pw-only` flag~~
+* ~~allow other then DNS-01 Let's Encrypt challenges and make [legos](https://github.com/xenolf/lego) DNS providers available to make things even more automated!~~
 * ~~add `--insecure` to ignore invalid TLS certificates when talking to FRITZ!Box~~
 * ~~read FRITZ!Box administrator password from environment~~
 * ~~add ability to use already combined private keys and certificate files~~
