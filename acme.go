@@ -6,12 +6,17 @@ import (
 	"crypto/rsa"
 	"log"
 
-	"github.com/xenolf/lego/acme"
+	"github.com/xenolf/lego/certcrypto"
+	"github.com/xenolf/lego/certificate"
+	"github.com/xenolf/lego/challenge"
+	"github.com/xenolf/lego/challenge/dns01"
+	"github.com/xenolf/lego/lego"
+	"github.com/xenolf/lego/registration"
 )
 
 type acmeUser struct {
 	Email        string
-	Registration *acme.RegistrationResource
+	Registration *registration.Resource
 	key          crypto.PrivateKey
 }
 
@@ -19,7 +24,7 @@ func (u acmeUser) GetEmail() string {
 	return u.Email
 }
 
-func (u acmeUser) GetRegistration() *acme.RegistrationResource {
+func (u acmeUser) GetRegistration() *registration.Resource {
 	return u.Registration
 }
 
@@ -27,7 +32,7 @@ func (u acmeUser) GetPrivateKey() crypto.PrivateKey {
 	return u.key
 }
 
-func getCertificate(caDirURL string, domain string, mail string) (*acme.CertificateResource, error) {
+func getCertificate(caDirURL string, domain string, mail string) (*certificate.Resource, error) {
 	const rsaKeySize = 2048
 	privateKey, err := rsa.GenerateKey(rand.Reader, rsaKeySize)
 	if err != nil {
@@ -38,30 +43,35 @@ func getCertificate(caDirURL string, domain string, mail string) (*acme.Certific
 		key:   privateKey,
 	}
 
-	client, err := acme.NewClient(caDirURL, &myUser, acme.RSA2048)
-	if err != nil {
-		return nil, err
-	}
+	config := lego.NewConfig(&myUser)
+	config.CADirURL = caDirURL
+	config.KeyType = certcrypto.RSA2048
 
-	_, err = client.Register(true)
+	client, err := lego.NewClient(config)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// configure manual DNS challenge provider
-	// and only ask for DNS01 challenge
-	manualDNS, err := acme.NewDNSProviderManual()
+	_, err = client.Registration.Register(registration.RegisterOptions{TermsOfServiceAgreed: true})
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
-	err = client.SetChallengeProvider(acme.DNS01, manualDNS)
-	if err != nil {
-		return nil, err
-	}
-	client.ExcludeChallenges([]acme.Challenge{acme.Challenge("http-01"), acme.Challenge("tls-alpn-01")})
 
-	bundle := true
-	cert, err := client.ObtainCertificate([]string{domain}, bundle, nil, false)
+	provider, err := dns01.NewDNSProviderManual()
+	// provider, err := dns.NewDNSChallengeProviderByName("inwx")
+	if err != nil {
+		return nil, err
+	}
+
+	client.Challenge.SetDNS01Provider(provider)
+	client.Challenge.Exclude([]challenge.Type{challenge.HTTP01, challenge.TLSALPN01})
+
+	request := certificate.ObtainRequest{
+		Domains: []string{domain},
+		Bundle:  true,
+	}
+
+	cert, err := client.Certificate.Obtain(request)
 	if err != nil {
 		return nil, err
 	}
