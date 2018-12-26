@@ -1,7 +1,7 @@
-<!-- markdownlint-disable MD039 -->
+<!-- markdownlint-disable MD039 MD041 -->
 [ ![Travis CI Status](https://travis-ci.org/tisba/fritz-tls.svg?branch=master)](https://travis-ci.org/tisba/fritz-tls)
 [ ![Go Report Card](https://goreportcard.com/badge/github.com/tisba/fritz-tls)](https://goreportcard.com/report/github.com/tisba/fritz-tls)
-<!-- markdownlint-enable MD039 -->
+<!-- markdownlint-enable MD039 MD041 -->
 
 # FRITZ!Box TLS Certificate Installer
 
@@ -14,13 +14,11 @@ Although it should work with other versions as well, it is only tested with:
 
 In case you want to know how to do that manually, take a look at AVM's [knowledge base article](https://en.avm.de/service/fritzbox/fritzbox-7390/knowledge-base/publication/show/1525_Importing-your-own-certificate-to-the-FRITZ-Box/).
 
-
 ## Installation
 
 ```console
 go get -u github.com/tisba/fritz-tls
 ```
-
 
 ## Usage
 
@@ -55,7 +53,6 @@ Let's Encrypt specific (`--auto-cert`) options are:
 Options for non `--auto-cert` mode:
 
 * `--bundle` as an alternative for `--key` and `--fullchain`. The bundle where the password-less private key and certificate are both present.
-
 
 ## TODOs and Ideas
 
