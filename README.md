@@ -61,6 +61,7 @@ These are some things I'd like to to in the future:
 
 * add validation for private keys and certificate before uploading (avoid trying to upload garbage)
 * allow password protected private keys (when not provisioned by LE)
+* add homebrew as a release target for goreleaser
 * ~~ask for `--user` if not provided (may be empty then) and/or add `--pw-only` flag~~
 * ~~allow other then DNS-01 Let's Encrypt challenges and make [legos](https://github.com/xenolf/lego) DNS providers available to make things even more automated!~~
 * ~~add `--insecure` to ignore invalid TLS certificates when talking to FRITZ!Box~~
