@@ -9,6 +9,7 @@ import (
 	"github.com/xenolf/lego/certcrypto"
 	"github.com/xenolf/lego/certificate"
 	"github.com/xenolf/lego/challenge"
+	"github.com/xenolf/lego/challenge/dns01"
 	"github.com/xenolf/lego/lego"
 	"github.com/xenolf/lego/providers/dns"
 	"github.com/xenolf/lego/registration"
@@ -32,7 +33,7 @@ func (u acmeUser) GetPrivateKey() crypto.PrivateKey {
 	return u.key
 }
 
-func getCertificate(caDirURL string, domain string, mail string) (*certificate.Resource, error) {
+func getCertificate(caDirURL string, domain string, mail string, dnsProviderName string) (*certificate.Resource, error) {
 	const rsaKeySize = 2048
 	privateKey, err := rsa.GenerateKey(rand.Reader, rsaKeySize)
 	if err != nil {
@@ -57,8 +58,13 @@ func getCertificate(caDirURL string, domain string, mail string) (*certificate.R
 		log.Fatal(err)
 	}
 
-	// provider, err := dns01.NewDNSProviderManual()
-	provider, err := dns.NewDNSChallengeProviderByName("inwx")
+	var provider challenge.Provider
+	switch dnsProviderName {
+	case "manual":
+		provider, err = dns01.NewDNSProviderManual()
+	default:
+		provider, err = dns.NewDNSChallengeProviderByName(dnsProviderName)
+	}
 	if err != nil {
 		return nil, err
 	}
