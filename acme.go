@@ -63,7 +63,10 @@ func getCertificate(caDirURL string, domain string, mail string) (*certificate.R
 		return nil, err
 	}
 
-	client.Challenge.SetDNS01Provider(provider)
+	err = client.Challenge.SetDNS01Provider(provider)
+	if err != nil {
+		return nil, err
+	}
 	client.Challenge.Exclude([]challenge.Type{challenge.HTTP01, challenge.TLSALPN01})
 
 	request := certificate.ObtainRequest{
