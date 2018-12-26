@@ -9,8 +9,8 @@ import (
 	"github.com/xenolf/lego/certcrypto"
 	"github.com/xenolf/lego/certificate"
 	"github.com/xenolf/lego/challenge"
-	"github.com/xenolf/lego/challenge/dns01"
 	"github.com/xenolf/lego/lego"
+	"github.com/xenolf/lego/providers/dns"
 	"github.com/xenolf/lego/registration"
 )
 
@@ -57,8 +57,8 @@ func getCertificate(caDirURL string, domain string, mail string) (*certificate.R
 		log.Fatal(err)
 	}
 
-	provider, err := dns01.NewDNSProviderManual()
-	// provider, err := dns.NewDNSChallengeProviderByName("inwx")
+	// provider, err := dns01.NewDNSProviderManual()
+	provider, err := dns.NewDNSChallengeProviderByName("inwx")
 	if err != nil {
 		return nil, err
 	}
