@@ -28,3 +28,11 @@ release:
   draft: true
   prerelease: false
   disable: false
+brew:
+  github:
+    owner: tisba
+    name: taps
+  install: bin.install "fritz-tls"
+  folder: Formula
+  homepage: "https://github.com/tisba/fritz-tls"
+  description: "Automate TLS certificate installation for AVM FRITZ!Box"
