@@ -16,6 +16,14 @@ In case you want to know how to do that manually, take a look at AVM's [knowledg
 
 ## Installation
 
+Homebrew:
+
+```console
+brew install tisba/taps/fritz-tls
+```
+
+Go
+
 ```console
 go get -u github.com/tisba/fritz-tls
 ```
