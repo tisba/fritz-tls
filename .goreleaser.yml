@@ -35,7 +35,7 @@ release:
 brew:
   github:
     owner: tisba
-    name: taps
+    name: homebrew-taps
   install: bin.install "fritz-tls"
   folder: Formula
   homepage: "https://github.com/tisba/fritz-tls"
