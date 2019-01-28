@@ -11,6 +11,10 @@ builds:
     - amd64
     - arm
 archive:
+  format: zip
+  format_overrides:
+    - goos: linux
+      format: tar.gz
   replacements:
     amd64: x86_64
 snapshot:
