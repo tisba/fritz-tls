@@ -25,7 +25,7 @@ release:
   github:
     owner: tisba
     name: fritz-tls
-  draft: true
+  draft: false
   prerelease: false
   disable: false
 brew:
