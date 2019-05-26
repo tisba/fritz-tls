@@ -67,6 +67,7 @@ Options for non `--auto-cert` mode:
 
 These are some things I'd like to to in the future:
 
+* if `--tls-port` is not given, we should try to use `--host` before failing
 * add validation for private keys and certificate before uploading (avoid trying to upload garbage)
 * allow password protected private keys (when not provisioned by LE)
 * ~~add homebrew as a release target for goreleaser~~
