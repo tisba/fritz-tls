@@ -10,7 +10,7 @@ cache:
     - $HOME/.cache/go-build
     - $HOME/gopath/pkg/mod
 go:
-  - 1.11.x
+  - "1.12.x"
 install:
   - go get -v ./...
 deploy:
