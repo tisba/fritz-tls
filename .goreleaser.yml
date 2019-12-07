@@ -10,13 +10,13 @@ builds:
     goarch:
     - amd64
     - arm
-archive:
-  format: zip
-  format_overrides:
-    - goos: linux
-      format: tar.gz
-  replacements:
-    amd64: x86_64
+archives:
+  - format: zip
+    format_overrides:
+      - goos: linux
+        format: tar.gz
+    replacements:
+      amd64: x86_64
 snapshot:
   name_template: "{{ .Tag }}-next"
 changelog:
@@ -32,11 +32,12 @@ release:
   draft: false
   prerelease: false
   disable: false
-brew:
-  github:
-    owner: tisba
-    name: homebrew-taps
-  install: bin.install "fritz-tls"
-  folder: Formula
-  homepage: "https://github.com/tisba/fritz-tls"
-  description: "Automate TLS certificate installation for AVM FRITZ!Box"
+brews:
+  -
+    github:
+      owner: tisba
+      name: homebrew-taps
+    install: bin.install "fritz-tls"
+    folder: Formula
+    homepage: "https://github.com/tisba/fritz-tls"
+    description: "Automate TLS certificate installation for AVM FRITZ!Box"
