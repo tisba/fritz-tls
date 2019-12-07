@@ -24,7 +24,7 @@ require (
 	github.com/google/uuid v1.1.0 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e // indirect
 	github.com/h2non/gock v1.0.12 // indirect
-	github.com/howeyc/gopass v0.0.0-20170109162249-bf9dde6d0d2c
+	github.com/howeyc/gopass v0.0.0-20190910152052-7cb4b85ec19c
 	github.com/iij/doapi v0.0.0-20180911005243-8803795a9b7b // indirect
 	github.com/json-iterator/go v1.1.5 // indirect
 	github.com/jtolds/gls v4.2.1+incompatible // indirect
@@ -60,3 +60,5 @@ require (
 	gopkg.in/resty.v1 v1.10.3 // indirect
 	gopkg.in/square/go-jose.v2 v2.2.1 // indirect
 )
+
+go 1.13
