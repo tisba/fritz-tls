@@ -52,7 +52,7 @@ require (
 	golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9 // indirect
 	golang.org/x/net v0.0.0-20181220203305-927f97764cc3 // indirect
 	golang.org/x/oauth2 v0.0.0-20181203162652-d668ce993890 // indirect
-	golang.org/x/text v0.3.0
+	golang.org/x/text v0.3.2
 	golang.org/x/time v0.0.0-20181108054448-85acf8d2951c // indirect
 	google.golang.org/api v0.0.0-20181221000618-65a46cafb132 // indirect
 	gopkg.in/ini.v1 v1.40.0 // indirect
@@ -60,3 +60,5 @@ require (
 	gopkg.in/resty.v1 v1.10.3 // indirect
 	gopkg.in/square/go-jose.v2 v2.2.1 // indirect
 )
+
+go 1.13
