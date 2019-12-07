@@ -2,8 +2,10 @@ name: Release
 
 on:
   push:
+    branches-ignore:
+      - '**'
     tags:
-    - '*'
+      - 'v*.*.*'
 
 jobs:
   goreleaser:
