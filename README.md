@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD039 MD041 -->
-[ ![Travis CI Status](https://travis-ci.org/tisba/fritz-tls.svg?branch=master)](https://travis-ci.org/tisba/fritz-tls)
+![Build](https://github.com/tisba/fritz-tls/workflows/Go/badge.svg)
 [ ![Go Report Card](https://goreportcard.com/badge/github.com/tisba/fritz-tls)](https://goreportcard.com/report/github.com/tisba/fritz-tls)
 <!-- markdownlint-enable MD039 MD041 -->
 
