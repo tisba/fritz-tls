@@ -48,7 +48,7 @@ require (
 	github.com/smueller18/goinwx v0.4.0 // indirect
 	github.com/timewasted/linode v0.0.0-20160829202747-37e84520dcf7 // indirect
 	github.com/transip/gotransip v5.8.1+incompatible // indirect
-	github.com/xenolf/lego v1.2.2-0.20181221235305-820c2b7531bc
+	github.com/xenolf/lego/v4 v4.3.1
 	golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9 // indirect
 	golang.org/x/net v0.0.0-20181220203305-927f97764cc3 // indirect
 	golang.org/x/oauth2 v0.0.0-20181203162652-d668ce993890 // indirect
