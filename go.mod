@@ -1,64 +1,47 @@
 module github.com/tisba/fritz-tls
 
 require (
-	cloud.google.com/go v0.34.0 // indirect
-	contrib.go.opencensus.io/exporter/ocagent v0.4.1 // indirect
-	github.com/Azure/azure-sdk-for-go v24.0.0+incompatible // indirect
-	github.com/Azure/go-autorest v11.2.8+incompatible // indirect
-	github.com/JamesClonk/vultr v0.0.0-20181015175859-5673d2d7d620 // indirect
-	github.com/OpenDNS/vegadns2client v0.0.0-20180418235048-a3fa4a771d87 // indirect
-	github.com/akamai/AkamaiOPEN-edgegrid-golang v0.6.2 // indirect
-	github.com/aliyun/alibaba-cloud-sdk-go v0.0.0-20181225034951-56ab3d10ba31 // indirect
-	github.com/aws/aws-sdk-go v1.16.11 // indirect
-	github.com/cloudflare/cloudflare-go v0.8.5 // indirect
-	github.com/cpu/goacmedns v0.0.1 // indirect
-	github.com/decker502/dnspod-go v0.0.0-20180416134550-83a3ba562b04 // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
-	github.com/dimchansky/utfbom v1.1.0 // indirect
-	github.com/dnaeon/go-vcr v1.0.1 // indirect
-	github.com/dnsimple/dnsimple-go v0.22.0 // indirect
-	github.com/exoscale/egoscale v0.13.1 // indirect
-	github.com/fatih/structs v1.1.0 // indirect
-	github.com/go-ini/ini v1.40.0 // indirect
-	github.com/google/go-querystring v1.0.0 // indirect
-	github.com/google/uuid v1.1.0 // indirect
-	github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e // indirect
-	github.com/h2non/gock v1.0.12 // indirect
+	github.com/Azure/azure-sdk-for-go v52.5.0+incompatible // indirect
+	github.com/Azure/go-autorest/autorest v0.11.18 // indirect
+	github.com/Azure/go-autorest/autorest/azure/auth v0.5.7 // indirect
+	github.com/Azure/go-autorest/autorest/to v0.4.0 // indirect
+	github.com/Azure/go-autorest/autorest/validation v0.3.1 // indirect
+	github.com/aliyun/alibaba-cloud-sdk-go v1.61.991 // indirect
+	github.com/aws/aws-sdk-go v1.38.1 // indirect
+	github.com/boombuler/barcode v1.0.1 // indirect
+	github.com/exoscale/egoscale v1.19.0 // indirect
+	github.com/go-acme/lego/v4 v4.3.1
+	github.com/go-errors/errors v1.1.1 // indirect
+	github.com/go-resty/resty/v2 v2.5.0 // indirect
+	github.com/gofrs/uuid v4.0.0+incompatible // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
+	github.com/golang/protobuf v1.5.1 // indirect
+	github.com/google/gofuzz v1.2.0 // indirect
+	github.com/google/uuid v1.2.0 // indirect
+	github.com/googleapis/gnostic v0.5.4 // indirect
+	github.com/gopherjs/gopherjs v0.0.0-20210202160940-bed99a852dfe // indirect
+	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/howeyc/gopass v0.0.0-20190910152052-7cb4b85ec19c
-	github.com/iij/doapi v0.0.0-20180911005243-8803795a9b7b // indirect
-	github.com/json-iterator/go v1.1.5 // indirect
-	github.com/jtolds/gls v4.2.1+incompatible // indirect
-	github.com/juju/ratelimit v1.0.1 // indirect
-	github.com/kolo/xmlrpc v0.0.0-20181023172212-16bdd962781d // indirect
-	github.com/ldez/go-auroradns v0.0.0-20181107021640-532168a1e313 // indirect
-	github.com/linode/linodego v0.7.0 // indirect
-	github.com/miekg/dns v1.1.1 // indirect
-	github.com/mitchellh/go-homedir v1.0.0 // indirect
-	github.com/mitchellh/mapstructure v1.1.2 // indirect
-	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
-	github.com/modern-go/reflect2 v1.0.1 // indirect
-	github.com/namedotcom/go v0.0.0-20180403034216-08470befbe04 // indirect
-	github.com/nbio/st v0.0.0-20140626010706-e9e8d9816f32 // indirect
-	github.com/ovh/go-ovh v0.0.0-20181109152953-ba5adb4cf014 // indirect
-	github.com/pkg/errors v0.8.0 // indirect
-	github.com/sacloud/libsacloud v1.5.0 // indirect
-	github.com/sirupsen/logrus v1.2.0 // indirect
-	github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d // indirect
-	github.com/smartystreets/goconvey v0.0.0-20181108003508-044398e4856c // indirect
-	github.com/smueller18/goinwx v0.4.0 // indirect
-	github.com/timewasted/linode v0.0.0-20160829202747-37e84520dcf7 // indirect
-	github.com/transip/gotransip v5.8.1+incompatible // indirect
-	github.com/xenolf/lego v1.2.2-0.20181221235305-820c2b7531bc
-	golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9 // indirect
-	golang.org/x/net v0.0.0-20181220203305-927f97764cc3 // indirect
-	golang.org/x/oauth2 v0.0.0-20181203162652-d668ce993890 // indirect
+	github.com/imdario/mergo v0.3.12 // indirect
+	github.com/kolo/xmlrpc v0.0.0-20201022064351-38db28db192b // indirect
+	github.com/linode/linodego v1.0.0 // indirect
+	github.com/liquidweb/liquidweb-cli v0.6.10 // indirect
+	github.com/miekg/dns v1.1.41 // indirect
+	github.com/mitchellh/mapstructure v1.4.1 // indirect
+	github.com/sirupsen/logrus v1.8.1 // indirect
+	go.uber.org/ratelimit v0.2.0 // indirect
+	golang.org/x/crypto v0.0.0-20210317152858-513c2a44f670 // indirect
+	golang.org/x/net v0.0.0-20210316092652-d523dce5a7f4 // indirect
+	golang.org/x/sys v0.0.0-20210319071255-635bc2c9138d // indirect
+	golang.org/x/term v0.0.0-20210317153231-de623e64d2a6 // indirect
 	golang.org/x/text v0.3.5
-	golang.org/x/time v0.0.0-20181108054448-85acf8d2951c // indirect
-	google.golang.org/api v0.0.0-20181221000618-65a46cafb132 // indirect
-	gopkg.in/ini.v1 v1.40.0 // indirect
-	gopkg.in/ns1/ns1-go.v2 v2.0.0-20181211201113-a57b2a18aab6 // indirect
-	gopkg.in/resty.v1 v1.10.3 // indirect
-	gopkg.in/square/go-jose.v2 v2.2.1 // indirect
+	golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba // indirect
+	google.golang.org/api v0.42.0 // indirect
+	google.golang.org/genproto v0.0.0-20210319143718-93e7006c17a6 // indirect
+	k8s.io/client-go v0.20.5 // indirect
+	k8s.io/klog/v2 v2.8.0 // indirect
+	k8s.io/utils v0.0.0-20210305010621-2afb4311ab10 // indirect
+	sigs.k8s.io/structured-merge-diff/v4 v4.1.0 // indirect
 )
 
-go 1.13
+go 1.16
