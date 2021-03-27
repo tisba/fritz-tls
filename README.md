@@ -9,7 +9,7 @@ This is a little pet project to install TLS certificates into your [FRITZ!Box](h
 
 Although it should work with other versions as well, it is only tested with:
 
-* FRITZ!Box Fon WLAN 7530 (FRITZ!OS: 07.21)
+* FRITZ!Box Fon WLAN 7530 (FRITZ!OS: 07.25)
 * FRITZ!Box 7490 (FRITZ!OS: 07.21)
 
 In case you want to know how to do that manually, take a look at AVM's [knowledge base article](https://en.avm.de/service/fritzbox/fritzbox-7390/knowledge-base/publication/show/1525_Importing-your-own-certificate-to-the-FRITZ-Box/).
@@ -57,7 +57,7 @@ Let's Encrypt specific (`--auto-cert`) options are:
 * `--domain` the domain you want to have your certificate generated for
 * `--email` your mail address you want to have registered with Let’s Encrypt
 * `--save` (optional) to save generated private key and acquired certificate
-* `--dns-provider` (default `manual`) to specify one of [lego's](https://github.com/xenolf/lego/tree/master/providers/dns) supported DNS providers. Note that you might have to set environment variables to configure your provider, e.g. `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_HOSTED_ZONE_ID`. I use name servers by AWS/Route53 and [inwx](https://github.com/xenolf/lego/blob/master/providers/dns/inwx/inwx.go), so I have to provide `INWX_USER`, `INWX_PASSWORD`. I'm not sure if there is a overview, so for now you have to consult the [source](https://github.com/xenolf/lego/tree/master/providers/dns).
+* `--dns-provider` (default `manual`) to specify one of [lego's](https://github.com/xenolf/lego/tree/master/providers/dns) supported DNS providers. Note that you might have to set environment variables to configure your provider, e.g. `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_HOSTED_ZONE_ID`. I use name servers by AWS/Route53 and [inwx](https://github.com/xenolf/lego/blob/master/providers/dns/inwx/inwx.go), so I have to provide `INWX_USERNAME`, `INWX_PASSWORD`. I'm not sure if there is a overview, so for now you have to consult the [source](https://github.com/xenolf/lego/tree/master/providers/dns).
 
 Options for non `--auto-cert` mode:
 
