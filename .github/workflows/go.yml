@@ -46,3 +46,9 @@ jobs:
 
     - name: Run staticcheck
       run: staticcheck ./...
+
+    - name: Run goreleaser check
+      uses: goreleaser/goreleaser-action@v2
+      with:
+        version: latest
+        args: check
