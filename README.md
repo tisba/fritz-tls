@@ -80,3 +80,12 @@ These are some things I'd like to to in the future:
 * ~~improve detection if certificate installation was successful; currently I'm looking for a string in the response. But maybe we can just wait a little bit and make a https request and check if the certificate is actually being used.~~
 * ~~implement FRITZ!Box authentication for user name and password~~
 * ~~set up Travis and use [GoReleaser](https://github.com/goreleaser/goreleaser) to build and publish builds~~
+
+## Make Release
+
+Releases are done via Github Actions on push of a git tag. To make a release, run
+
+```terminal
+git tag va.b.c
+git push --tags
+```
