@@ -1,9 +1,6 @@
 name: Go
 on: [push]
 
-env:
-  GOCACHE: "/home/runner/go/cache"
-
 jobs:
   build:
     name: Build
@@ -14,7 +11,8 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: |
-          /home/runner/go/cache
+          ~/go/pkg/mod
+          ~/.cache/go-build
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
