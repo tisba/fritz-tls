@@ -9,7 +9,7 @@ builds:
     - windows
     goarch:
     - amd64
-    - arm
+    - arm64
 archives:
   - format: zip
     format_overrides:
@@ -29,12 +29,9 @@ release:
   github:
     owner: tisba
     name: fritz-tls
-  draft: false
-  prerelease: false
-  disable: false
 brews:
   -
-    github:
+    tap:
       owner: tisba
       name: homebrew-taps
     install: bin.install "fritz-tls"
