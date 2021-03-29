@@ -34,7 +34,7 @@ release:
   disable: false
 brews:
   -
-    github:
+    tap:
       owner: tisba
       name: homebrew-taps
     install: bin.install "fritz-tls"
