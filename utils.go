@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -10,7 +9,6 @@ import (
 )
 
 func getPasswdFromStdin() string {
-	fmt.Printf("FRITZ!Box Admin Password (will be masked): ")
 	pass, err := gopass.GetPasswdMasked()
 
 	if err != nil {

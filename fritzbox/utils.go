@@ -62,6 +62,10 @@ func fileUploadRequest(uri string, method string, params [][]string, paramName s
 	}
 
 	req, err := http.NewRequest(method, uri, body)
+	if err != nil {
+		return nil, err
+	}
+
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 	return req, err
 }

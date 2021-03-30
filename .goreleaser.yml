@@ -7,7 +7,7 @@ builds:
     - darwin
     goarch:
     - amd64
-    - arm
+    - arm64
 archives:
   - format: zip
     format_overrides:
@@ -27,9 +27,6 @@ release:
   github:
     owner: tisba
     name: fritz-tls
-  draft: false
-  prerelease: false
-  disable: false
 brews:
   -
     tap:

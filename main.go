@@ -3,9 +3,11 @@ package main
 import (
 	"bytes"
 	"flag"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
+	"net/url"
 	"os"
 
 	"github.com/tisba/fritz-tls/fritzbox"
@@ -19,6 +21,7 @@ var (
 
 type configOptions struct { // nolint: maligned
 	host          string
+	user          string
 	adminPassword string
 	insecure      bool
 	tlsPort       int
@@ -43,6 +46,7 @@ func main() {
 
 	fritz := &fritzbox.FritzBox{
 		Host:     config.host,
+		User:     config.user,
 		Insecure: config.insecure,
 		Domain:   config.domain,
 		TLSPort:  config.tlsPort,
@@ -159,11 +163,25 @@ func setupConfiguration() configOptions {
 		}
 	}
 
+	url, err := url.Parse(config.host)
+	if err != nil {
+		log.Fatal(err)
+	}
+	config.user = url.User.Username()
+	url.User = nil
+	config.host = url.String()
+
 	if config.adminPassword == "" {
 		config.adminPassword = os.Getenv("FRITZTLS_ADMIN_PASS")
 	}
 
 	if config.adminPassword == "" {
+		if config.user != "" {
+			fmt.Printf("FRITZ!Box Admin Password for %s as %s (will be masked): ", config.host, config.user)
+		} else {
+			fmt.Printf("FRITZ!Box Admin Password for %s (will be masked): ", config.host)
+		}
+
 		config.adminPassword = getPasswdFromStdin()
 	}
 

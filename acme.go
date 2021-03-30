@@ -6,13 +6,12 @@ import (
 	"crypto/rsa"
 	"log"
 
-	"github.com/xenolf/lego/certcrypto"
-	"github.com/xenolf/lego/certificate"
-	"github.com/xenolf/lego/challenge"
-	"github.com/xenolf/lego/challenge/dns01"
-	"github.com/xenolf/lego/lego"
-	"github.com/xenolf/lego/providers/dns"
-	"github.com/xenolf/lego/registration"
+	"github.com/go-acme/lego/v4/certificate"
+	"github.com/go-acme/lego/v4/challenge"
+	"github.com/go-acme/lego/v4/challenge/dns01"
+	"github.com/go-acme/lego/v4/lego"
+	"github.com/go-acme/lego/v4/providers/dns"
+	"github.com/go-acme/lego/v4/registration"
 )
 
 type acmeUser struct {
@@ -46,7 +45,6 @@ func getCertificate(caDirURL string, domain string, mail string, dnsProviderName
 
 	config := lego.NewConfig(&myUser)
 	config.CADirURL = caDirURL
-	config.KeyType = certcrypto.RSA2048
 
 	client, err := lego.NewClient(config)
 	if err != nil {
@@ -73,7 +71,6 @@ func getCertificate(caDirURL string, domain string, mail string, dnsProviderName
 	if err != nil {
 		return nil, err
 	}
-	client.Challenge.Exclude([]challenge.Type{challenge.HTTP01, challenge.TLSALPN01})
 
 	request := certificate.ObtainRequest{
 		Domains: []string{domain},
