@@ -8,6 +8,10 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v2
+    - name: Read go version
+      id: read_versions
+      run: |
+        echo "::set-output name=go::$(go mod edit -json | jq -r .Go)"
     - uses: actions/cache@v2
       with:
         path: |
@@ -19,7 +23,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: 1.16
+        go-version: "${{ steps.read_versions.outputs.go }}"
       id: go
     - name: Print Go Version
       run: go version
