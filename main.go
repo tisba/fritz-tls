@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"strconv"
 
 	"github.com/tisba/fritz-tls/fritzbox"
 )
@@ -130,6 +131,11 @@ func setupConfiguration() configOptions {
 
 	flag.Parse()
 
+	url, err := url.Parse(config.host)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	if config.version {
 		log.Printf("fritz-tls %s (%s, %s)", version, date, commit)
 		os.Exit(0)
@@ -141,7 +147,11 @@ func setupConfiguration() configOptions {
 		}
 
 		if config.domain == "" {
-			log.Fatal("--domain is required with --auto-cert!")
+			if url.Hostname() != "fritz.box" {
+				config.domain = url.Hostname()
+			} else {
+				log.Fatal("--domain is required with --auto-cert!")
+			}
 		}
 
 		if config.email == "" {
@@ -163,13 +173,16 @@ func setupConfiguration() configOptions {
 		}
 	}
 
-	url, err := url.Parse(config.host)
-	if err != nil {
-		log.Fatal(err)
-	}
 	config.user = url.User.Username()
 	url.User = nil
 	config.host = url.String()
+
+	if config.tlsPort == 0 && url.Port() != "" {
+		config.tlsPort, err = strconv.Atoi(url.Port())
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 
 	if config.adminPassword == "" {
 		config.adminPassword = os.Getenv("FRITZTLS_ADMIN_PASS")

@@ -54,7 +54,7 @@ General options are:
 
 Let's Encrypt specific (`--auto-cert`) options are:
 
-* `--domain` the domain you want to have your certificate generated for
+* `--domain` the domain you want to have your certificate generated for (if `--host` is not `fritz.box` it will default to the host name in `--host`)
 * `--email` your mail address you want to have registered with Let’s Encrypt
 * `--save` (optional) to save generated private key and acquired certificate
 * `--dns-provider` (default `manual`) to specify one of [lego's](https://github.com/xenolf/lego/tree/master/providers/dns) supported DNS providers. Note that you might have to set environment variables to configure your provider, e.g. `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_HOSTED_ZONE_ID`. I use name servers by AWS/Route53 and [inwx](https://github.com/xenolf/lego/blob/master/providers/dns/inwx/inwx.go), so I have to provide `INWX_USERNAME`, `INWX_PASSWORD`. I'm not sure if there is a overview, so for now you have to consult the [source](https://github.com/xenolf/lego/tree/master/providers/dns).
@@ -67,9 +67,9 @@ Options for non `--auto-cert` mode:
 
 These are some things I'd like to to in the future:
 
-* if `--tls-port` is not given, we should try to use `--host` before failing
 * add validation for private keys and certificate before uploading (avoid trying to upload garbage)
 * allow password protected private keys (when not provisioned by LE)
+* ~~if `--tls-port` is not given, we should try to use `--host` before failing~~
 * ~~add homebrew as a release target for goreleaser~~
 * ~~ask for `--user` if not provided (may be empty then) and/or add `--pw-only` flag~~
 * ~~allow other then DNS-01 Let's Encrypt challenges and make [legos](https://github.com/xenolf/lego) DNS providers available to make things even more automated!~~
