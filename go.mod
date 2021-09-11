@@ -11,7 +11,7 @@ require (
 	github.com/aws/aws-sdk-go v1.38.8 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
 	github.com/cloudflare/cloudflare-go v0.15.0 // indirect
-	github.com/exoscale/egoscale v1.19.0 // indirect
+	github.com/exoscale/egoscale v0.73.1 // indirect
 	github.com/go-acme/lego/v4 v4.3.1
 	github.com/go-errors/errors v1.1.1 // indirect
 	github.com/go-resty/resty/v2 v2.5.0 // indirect
@@ -62,6 +62,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.1.0 // indirect
 	github.com/cpu/goacmedns v0.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/deepmap/oapi-codegen v1.6.1 // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
 	github.com/dnsimple/dnsimple-go v0.63.0 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
@@ -72,6 +73,7 @@ require (
 	github.com/gophercloud/gophercloud v0.16.0 // indirect
 	github.com/hashicorp/go-retryablehttp v0.6.8 // indirect
 	github.com/iij/doapi v0.0.0-20190504054126-0bbf12d6d7df // indirect
+	github.com/jarcoal/httpmock v1.0.6 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/k0kubun/go-ansi v0.0.0-20180517002512-3bf9e2903213 // indirect
@@ -93,10 +95,13 @@ require (
 	github.com/ovh/go-ovh v1.1.0 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/pquerna/otp v1.3.0 // indirect
 	github.com/sacloud/libsacloud v1.36.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/stretchr/objx v0.3.0 // indirect
+	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/transip/gotransip/v6 v6.6.0 // indirect
 	github.com/vultr/govultr/v2 v2.4.0 // indirect
 	go.opencensus.io v0.23.0 // indirect
