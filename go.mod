@@ -28,7 +28,7 @@ require (
 	github.com/howeyc/gopass v0.0.0-20190910152052-7cb4b85ec19c
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/kolo/xmlrpc v0.0.0-20201022064351-38db28db192b // indirect
-	github.com/linode/linodego v1.0.0 // indirect
+	github.com/linode/linodego v0.32.1 // indirect
 	github.com/liquidweb/liquidweb-cli v0.6.10 // indirect
 	github.com/miekg/dns v1.1.41 // indirect
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
