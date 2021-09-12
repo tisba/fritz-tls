@@ -42,14 +42,8 @@ jobs:
           exit 1
         fi
 
-    - name: Vet
-      run: go vet ./...
-
-    - name: Install staticcheck
-      run: go get honnef.co/go/tools/cmd/staticcheck
-
-    - name: Run staticcheck
-      run: staticcheck ./...
+    - name: Run golangci-lint
+      uses: golangci/golangci-lint-action@v2
 
     - name: Run goreleaser check
       uses: goreleaser/goreleaser-action@v2
