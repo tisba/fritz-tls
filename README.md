@@ -67,6 +67,8 @@ Options for non `--auto-cert` mode:
 
 These are some things I'd like to to in the future:
 
+* make `--auto-cert` the default and add something like `--manual-upload` instead. That would require less flags for the typical use case.
+* check validity and expiration date on existing certificate and don't renew unless some `--force-renew` flag or the remainingx cert validty is less then 30 days (the number of days could also be an option). This would make full-automation a lot easier.
 * add validation for private keys and certificate before uploading (avoid trying to upload garbage)
 * allow password protected private keys (when not provisioned by LE)
 * ~~if `--tls-port` is not given, we should try to use `--host` before failing~~
