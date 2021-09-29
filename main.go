@@ -107,22 +107,24 @@ func main() {
 	}
 }
 
-func setupConfiguration() configOptions {
-	var config configOptions
+func setupConfiguration() (config configOptions) {
+	var manualCert bool
 
 	flag.StringVar(&config.host, "host", "http://fritz.box", "FRITZ!Box host")
 	flag.StringVar(&config.adminPassword, "password", "", "FRITZ!Box admin password")
 	flag.BoolVar(&config.insecure, "insecure", false, "If host is https:// allow insecure/invalid TLS certificates")
 
-	flag.BoolVar(&config.useAcme, "auto-cert", false, "Use Let's Encrypt to obtain the certificate")
+	flag.BoolVar(&manualCert, "manual", false, "Provide certificate manually")
+
+	// ACME-mode
 	flag.StringVar(&config.acmeServer, "acme-server", "https://acme-v02.api.letsencrypt.org/directory", "Server URL of ACME")
 	flag.StringVar(&config.dnsProviderName, "dns-provider", "manual", "name of DNS provider to use")
 	flag.BoolVar(&config.saveCert, "save", false, "Save requested certificate and private key to disk")
-
 	flag.StringVar(&config.domain, "domain", "", "Desired FQDN of your FRITZ!Box")
 	flag.IntVar(&config.tlsPort, "tls-port", 443, "TLS port used by FRITZ!Box (used for verification)")
 	flag.StringVar(&config.email, "email", "", "Mail address to use for registration at Let's Encrypt")
 
+	// manual mode
 	flag.StringVar(&config.fullchain, "fullchain", "", "path to full certificate chain")
 	flag.StringVar(&config.privatekey, "key", "", "path to private key")
 	flag.StringVar(&config.bundle, "bundle", "", "path to certificate-private bundle")
@@ -130,6 +132,8 @@ func setupConfiguration() configOptions {
 	flag.BoolVar(&config.version, "version", false, "Print version and exit")
 
 	flag.Parse()
+
+	config.useAcme = !manualCert
 
 	url, err := url.Parse(config.host)
 	if err != nil {
@@ -143,23 +147,19 @@ func setupConfiguration() configOptions {
 
 	if config.useAcme {
 		if config.acmeServer == "" {
-			log.Fatal("--acme-server is required with --auto-cert!")
+			log.Fatal("--acme-server is required without --manual!")
 		}
 
 		if config.domain == "" {
 			if url.Hostname() != "fritz.box" {
 				config.domain = url.Hostname()
 			} else {
-				log.Fatal("--domain is required with --auto-cert!")
+				log.Fatal("--domain is required without --manual!")
 			}
 		}
 
-		if config.email == "" {
-			log.Fatal("--email is required with --auto-cert!")
-		}
-
 		if config.bundle != "" {
-			log.Fatal("--auto-cert, --bundle, --fullchain and --privatekey are mutually exclusive!")
+			log.Fatal("--bundle, --fullchain and --privatekey only work with --manual!")
 		}
 	} else {
 		if config.bundle != "" {
