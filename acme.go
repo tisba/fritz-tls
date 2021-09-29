@@ -32,7 +32,7 @@ func (u acmeUser) GetPrivateKey() crypto.PrivateKey {
 	return u.key
 }
 
-func getCertificate(caDirURL string, domain string, mail string, dnsProviderName string) (*certificate.Resource, error) {
+func getCertificate(caDirURL, domain, mail, dnsProviderName, dnsResolver string) (*certificate.Resource, error) {
 	const rsaKeySize = 2048
 	privateKey, err := rsa.GenerateKey(rand.Reader, rsaKeySize)
 	if err != nil {
@@ -67,7 +67,12 @@ func getCertificate(caDirURL string, domain string, mail string, dnsProviderName
 		return nil, err
 	}
 
-	err = client.Challenge.SetDNS01Provider(provider)
+	err = client.Challenge.SetDNS01Provider(provider,
+		dns01.CondOption(
+			dnsResolver != "",
+			dns01.AddRecursiveNameservers(dns01.ParseNameservers([]string{dnsResolver})),
+		),
+	)
 	if err != nil {
 		return nil, err
 	}

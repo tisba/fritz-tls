@@ -38,6 +38,7 @@ type configOptions struct { // nolint: maligned
 	domain          string
 	email           string
 	dnsProviderName string
+	dnsResolver     string
 
 	version bool
 }
@@ -64,7 +65,7 @@ func main() {
 	// Have we been ask to get a certificate from Let's Encrypt?
 	if config.useAcme {
 		// acquire certificate
-		cert, err := getCertificate(config.acmeServer, config.domain, config.email, config.dnsProviderName)
+		cert, err := getCertificate(config.acmeServer, config.domain, config.email, config.dnsProviderName, config.dnsResolver)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -123,6 +124,7 @@ func setupConfiguration() (config configOptions) {
 	flag.StringVar(&config.domain, "domain", "", "Desired FQDN of your FRITZ!Box")
 	flag.IntVar(&config.tlsPort, "tls-port", 443, "TLS port used by FRITZ!Box (used for verification)")
 	flag.StringVar(&config.email, "email", "", "Mail address to use for registration at Let's Encrypt")
+	flag.StringVar(&config.dnsResolver, "dns-resolver", "", "Resolver to use for recursive DNS queries, supported format: host:port; defaults to system resolver")
 
 	// manual mode
 	flag.StringVar(&config.fullchain, "fullchain", "", "path to full certificate chain")
