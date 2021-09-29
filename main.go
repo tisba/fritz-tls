@@ -143,7 +143,12 @@ func setupConfiguration() (config configOptions) {
 	}
 
 	if config.version {
-		log.Printf("fritz-tls %s (%s, %s)", version, date, commit)
+		if version != "" {
+			fmt.Printf("fritz-tls %s (%s, %s)\n", version, date, commit)
+		} else {
+			fmt.Println("fritz-tls 0.0.0-dev")
+		}
+
 		os.Exit(0)
 	}
 
