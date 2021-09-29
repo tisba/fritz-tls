@@ -1,4 +1,4 @@
-package main
+package fritzutils
 
 import (
 	"io"
@@ -8,7 +8,7 @@ import (
 	"github.com/howeyc/gopass"
 )
 
-func getPasswdFromStdin() string {
+func GetPasswdFromStdin() string {
 	pass, err := gopass.GetPasswdMasked()
 
 	if err != nil {
@@ -18,7 +18,7 @@ func getPasswdFromStdin() string {
 	return string(pass)
 }
 
-func readerFromFile(path string) io.Reader {
+func ReaderFromFile(path string) io.Reader {
 	reader, err := os.OpenFile(path, os.O_RDONLY, 0600)
 	if err != nil {
 		log.Fatal(err)

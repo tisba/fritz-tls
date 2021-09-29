@@ -11,7 +11,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/tisba/fritz-tls/fritzbox"
+	"github.com/tisba/fritz-tls/internal/fritzbox"
+	"github.com/tisba/fritz-tls/internal/fritzutils"
 )
 
 var (
@@ -170,13 +171,13 @@ func setupConfiguration() (config configOptions) {
 		}
 	} else {
 		if config.bundle != "" {
-			config.certificateBundle = readerFromFile(config.bundle)
+			config.certificateBundle = fritzutils.ReaderFromFile(config.bundle)
 		} else {
 			if config.fullchain == "" || config.privatekey == "" {
 				log.Fatal("--fullchain and --privatekey are both required, unless --bundle is used!")
 			}
 
-			config.certificateBundle = io.MultiReader(readerFromFile(config.fullchain), readerFromFile(config.privatekey))
+			config.certificateBundle = io.MultiReader(fritzutils.ReaderFromFile(config.fullchain), fritzutils.ReaderFromFile(config.privatekey))
 		}
 	}
 
@@ -202,7 +203,7 @@ func setupConfiguration() (config configOptions) {
 			fmt.Printf("FRITZ!Box Admin Password for %s (will be masked): ", config.host)
 		}
 
-		config.adminPassword = getPasswdFromStdin()
+		config.adminPassword = fritzutils.GetPasswdFromStdin()
 	}
 
 	if config.adminPassword == "" {
