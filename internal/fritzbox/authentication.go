@@ -5,7 +5,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -42,7 +42,7 @@ func fetchSessionInfo(client *http.Client, url string) (SessionInfo, error) {
 
 	defer resp.Body.Close() // nolint: errcheck
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return SessionInfo{}, err
 	}

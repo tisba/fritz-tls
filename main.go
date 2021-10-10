@@ -5,7 +5,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/url"
 	"os"
@@ -73,12 +72,12 @@ func main() {
 
 		// save certificate and private key to disk if requested
 		if config.saveCert {
-			err := ioutil.WriteFile(config.domain+"-key.pem", cert.PrivateKey, 0644)
+			err := os.WriteFile(config.domain+"-key.pem", cert.PrivateKey, 0644)
 			if err != nil {
 				log.Fatal(err)
 			}
 
-			err = ioutil.WriteFile(config.domain+"-cert.pem", cert.Certificate, 0644)
+			err = os.WriteFile(config.domain+"-cert.pem", cert.Certificate, 0644)
 			if err != nil {
 				log.Fatal(err)
 			}

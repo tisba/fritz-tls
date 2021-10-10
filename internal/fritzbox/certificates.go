@@ -2,7 +2,6 @@ package fritzbox
 
 import (
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strconv"
 	"strings"
@@ -29,7 +28,7 @@ func (fb *FritzBox) UploadCertificate(data io.Reader) (bool, string, error) {
 	}
 	defer response.Body.Close() // nolint: errcheck
 
-	body, err := ioutil.ReadAll(response.Body)
+	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		return false, "", err
 	}
