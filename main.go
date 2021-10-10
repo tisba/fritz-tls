@@ -86,6 +86,19 @@ func main() {
 		config.certificateBundle = io.MultiReader(bytes.NewReader(cert.Certificate), bytes.NewReader(cert.PrivateKey))
 	}
 
+	sessionOk, err := fritz.CheckSession()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if !sessionOk {
+		log.Println("Session expired, re-authenticating...")
+		err := fritz.PerformLogin(config.adminPassword)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
 	// Upload certificate and private key
 	status, response, err := fritz.UploadCertificate(config.certificateBundle)
 	if err != nil {

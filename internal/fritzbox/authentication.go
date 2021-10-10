@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 )
 
 // PerformLogin performs a login and returns SessionInfo including
@@ -32,6 +33,31 @@ func (fb *FritzBox) PerformLogin(adminPassword string) error {
 	fb.session = session
 
 	return nil
+}
+
+func (fb *FritzBox) CheckSession() (bool, error) {
+	client := fb.getHTTPClient()
+
+	requestBody := strings.NewReader("sid=" + fb.session.SID)
+
+	resp, err := client.Post(fb.Host+"/login_sid.lua?version=2", "application/x-www-form-urlencoded", requestBody)
+	if err != nil {
+		return false, err
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return false, err
+	}
+	defer resp.Body.Close() // nolint: errcheck
+
+	var sessionInfo SessionInfo
+	err = xml.Unmarshal(body, &sessionInfo)
+	if err != nil {
+		return false, err
+	}
+
+	return sessionInfo.SID == fb.session.SID, nil
 }
 
 func fetchSessionInfo(client *http.Client, url string) (SessionInfo, error) {
