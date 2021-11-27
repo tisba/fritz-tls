@@ -12,7 +12,7 @@ jobs:
       id: read_versions
       run: |
         echo "::set-output name=go::$(go mod edit -json | jq -r .Go)"
-    - uses: actions/cache@v2.1.6
+    - uses: actions/cache@v2.1.7
       with:
         path: |
           ~/go/pkg/mod
