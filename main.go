@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/url"
 	"os"
-	"strconv"
 
 	"github.com/tisba/fritz-tls/internal/fritzbox"
 	"github.com/tisba/fritz-tls/internal/fritzutils"
@@ -20,12 +19,12 @@ var (
 	commit  string
 )
 
-type configOptions struct { // nolint: maligned
-	host          string
-	user          string
-	adminPassword string
-	insecure      bool
-	tlsPort       int
+type configOptions struct {
+	host            string
+	user            string
+	adminPassword   string
+	insecure        bool
+	verificationURL *url.URL
 
 	fullchain         string
 	privatekey        string
@@ -47,11 +46,11 @@ func main() {
 	config := setupConfiguration()
 
 	fritz := &fritzbox.FritzBox{
-		Host:     config.host,
-		User:     config.user,
-		Insecure: config.insecure,
-		Domain:   config.domain,
-		TLSPort:  config.tlsPort,
+		Host:            config.host,
+		User:            config.user,
+		Insecure:        config.insecure,
+		Domain:          config.domain,
+		VerificationURL: config.verificationURL,
 	}
 
 	// Login into FRITZ!box
@@ -123,6 +122,7 @@ func main() {
 
 func setupConfiguration() (config configOptions) {
 	var manualCert bool
+	var verificationHost string
 
 	flag.StringVar(&config.host, "host", "http://fritz.box", "FRITZ!Box host")
 	flag.StringVar(&config.adminPassword, "password", "", "FRITZ!Box admin password")
@@ -135,9 +135,9 @@ func setupConfiguration() (config configOptions) {
 	flag.StringVar(&config.dnsProviderName, "dns-provider", "manual", "name of DNS provider to use")
 	flag.BoolVar(&config.saveCert, "save", false, "Save requested certificate and private key to disk")
 	flag.StringVar(&config.domain, "domain", "", "Desired FQDN of your FRITZ!Box")
-	flag.IntVar(&config.tlsPort, "tls-port", 443, "TLS port used by FRITZ!Box (used for verification)")
 	flag.StringVar(&config.email, "email", "", "Mail address to use for registration at Let's Encrypt")
 	flag.StringVar(&config.dnsResolver, "dns-resolver", "", "Resolver to use for recursive DNS queries, supported format: host:port; defaults to system resolver")
+	flag.StringVar(&verificationHost, "verification-url", "", "URL to use for certificate validation (defaults to 'host')")
 
 	// manual mode
 	flag.StringVar(&config.fullchain, "fullchain", "", "path to full certificate chain")
@@ -197,10 +197,16 @@ func setupConfiguration() (config configOptions) {
 	url.User = nil
 	config.host = url.String()
 
-	if config.tlsPort == 0 && url.Port() != "" {
-		config.tlsPort, err = strconv.Atoi(url.Port())
+	if verificationHost == "" {
+		verificationHost = config.host
+
+		config.verificationURL, err = url.Parse(config.host)
 		if err != nil {
 			log.Fatal(err)
+		}
+
+		if config.verificationURL.Scheme == "http" {
+			config.verificationURL.Scheme = "https"
 		}
 	}
 

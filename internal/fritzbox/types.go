@@ -1,13 +1,15 @@
 package fritzbox
 
+import "net/url"
+
 // FritzBox holds general information about the FRITZ!Box to talk to
 type FritzBox struct {
-	Host     string
-	User     string
-	Insecure bool
-	Domain   string
-	TLSPort  int
-	session  SessionInfo
+	Host            string
+	User            string
+	Insecure        bool
+	Domain          string
+	session         SessionInfo
+	VerificationURL *url.URL
 }
 
 // SessionInfo holds information about
