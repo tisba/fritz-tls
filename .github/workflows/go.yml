@@ -21,7 +21,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-go-
     - name: Set up Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: "${{ steps.read_versions.outputs.go }}"
       id: go
