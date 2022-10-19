@@ -43,7 +43,7 @@ General options for `fritz-tls` are:
 * `--insecure` (optional) to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate.
 * `--verification-url` (optional) to specify what URL to use to check certificate installation. Defaults to `--host`.
 
-`fritz-tls` can install any TLS certificate or aqcuire one using [Let's Encrypt](https://letsencrypt.org).
+`fritz-tls` can install any TLS certificate or acquire one using [Let's Encrypt](https://letsencrypt.org).
 
 ### Let's Encrypt Mode
 
@@ -73,7 +73,7 @@ fritz-tls --key=./certbot/live/demo.example.com/privkey.pem --fullchain=./certbo
 
 These are some things I'd like to to in the future:
 
-* check validity and expiration datex on existing certificate and don't renew unless some `--force-renew` flag or the remainingx cert validty is less then 30 days (the number of days could also be an option). This would make full-automation a lot easier.
+* check validity and expiration date on existing certificate and don't renew unless some `--force-renew` flag or the remaining cert validity is less then 30 days (the number of days could also be an option). This would make full-automation a lot easier.
 * add validation for private keys and certificate before uploading (avoid trying to upload garbage)
 * allow password protected private keys (when not provisioned by LE)
 
