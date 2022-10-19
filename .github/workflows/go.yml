@@ -8,23 +8,22 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v3
-    - name: Read go version
-      id: read_versions
-      run: |
-        echo "::set-output name=go::$(go mod edit -json | jq -r .Go)"
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version-file: "go.mod"
+
     - uses: actions/cache@v3
       with:
         path: |
           ~/go/pkg/mod
-          ~/.cache/go-build
+          ~/go/src
+          /home/runner/go/cache
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: "${{ steps.read_versions.outputs.go }}"
-      id: go
+
     - name: Print Go Version
       run: go version
 
