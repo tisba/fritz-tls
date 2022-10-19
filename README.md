@@ -54,6 +54,7 @@ By default, Let's Encrypt is used to acquire a certificate, options are:
 * `--save` (optional) to save generated private key and acquired certificate.
 * `--dns-provider` (default `manual`) to specify one of [lego's](https://github.com/xenolf/lego/tree/master/providers/dns) supported DNS providers. Note that you might have to set environment variables to configure your provider, e.g. `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_HOSTED_ZONE_ID`. I use name servers by AWS/Route53 and [inwx](https://github.com/xenolf/lego/blob/master/providers/dns/inwx/inwx.go), so I have to provide `INWX_USERNAME`, `INWX_PASSWORD`. I'm not sure if there is a overview, so for now you have to consult the [source](https://github.com/xenolf/lego/tree/master/providers/dns).
 * `--dns-resolver` (optional) to specify the resolver to be used for recursive DNS queries. If not provided, the system default will be used. Supported format is `host:port`.
+* `--force-renew` to force a renewal, even if the current certificate is valid for the requested domain and still valid for at least the next 30 days.
 
 ### Manual Certificate Installation
 
@@ -73,7 +74,6 @@ fritz-tls --key=./certbot/live/demo.example.com/privkey.pem --fullchain=./certbo
 
 These are some things I'd like to to in the future:
 
-* check validity and expiration date on existing certificate and don't renew unless some `--force-renew` flag or the remaining cert validity is less then 30 days (the number of days could also be an option). This would make full-automation a lot easier.
 * add validation for private keys and certificate before uploading (avoid trying to upload garbage)
 * allow password protected private keys (when not provisioned by LE)
 

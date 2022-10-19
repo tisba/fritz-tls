@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"time"
 
 	"github.com/tisba/fritz-tls/internal/fritzbox"
 	"github.com/tisba/fritz-tls/internal/fritzutils"
@@ -38,12 +39,24 @@ type configOptions struct {
 	email           string
 	dnsProviderName string
 	dnsResolver     string
+	forceRenew      bool
 
 	version bool
 }
 
 func main() {
 	config := setupConfiguration()
+
+	unexpired, validDomain, expiry := fritzutils.CheckCertValidity(config.verificationURL, config.domain, 30*24*time.Hour)
+	if unexpired && validDomain {
+		log.Printf("Current certificate still valid for %s until %s\n", config.domain, expiry.Format(time.RFC850))
+
+		if !config.forceRenew {
+			os.Exit(0)
+		}
+	}
+
+	setupAdminPassword(&config)
 
 	fritz := &fritzbox.FritzBox{
 		Host:            config.host,
@@ -120,6 +133,26 @@ func main() {
 	}
 }
 
+func setupAdminPassword(config *configOptions) {
+	if config.adminPassword == "" {
+		config.adminPassword = os.Getenv("FRITZTLS_ADMIN_PASS")
+	}
+
+	if config.adminPassword == "" {
+		if config.user != "" {
+			fmt.Printf("FRITZ!Box Admin Password for %s as %s (will be masked): ", config.host, config.user)
+		} else {
+			fmt.Printf("FRITZ!Box Admin Password for %s (will be masked): ", config.host)
+		}
+
+		config.adminPassword = fritzutils.GetPasswdFromStdin()
+	}
+
+	if config.adminPassword == "" {
+		log.Fatal("FRITZ!Box admin password required!")
+	}
+}
+
 func setupConfiguration() (config configOptions) {
 	var manualCert bool
 	var verificationHost string
@@ -138,6 +171,7 @@ func setupConfiguration() (config configOptions) {
 	flag.StringVar(&config.email, "email", "", "Mail address to use for registration at Let's Encrypt")
 	flag.StringVar(&config.dnsResolver, "dns-resolver", "", "Resolver to use for recursive DNS queries, supported format: host:port; defaults to system resolver")
 	flag.StringVar(&verificationHost, "verification-url", "", "URL to use for certificate validation (defaults to 'host')")
+	flag.BoolVar(&config.forceRenew, "force-renew", false, "Forces renewal even if current certificate is still valid for at least 30 days")
 
 	// manual mode
 	flag.StringVar(&config.fullchain, "fullchain", "", "path to full certificate chain")
@@ -208,24 +242,6 @@ func setupConfiguration() (config configOptions) {
 		if config.verificationURL.Scheme == "http" {
 			config.verificationURL.Scheme = "https"
 		}
-	}
-
-	if config.adminPassword == "" {
-		config.adminPassword = os.Getenv("FRITZTLS_ADMIN_PASS")
-	}
-
-	if config.adminPassword == "" {
-		if config.user != "" {
-			fmt.Printf("FRITZ!Box Admin Password for %s as %s (will be masked): ", config.host, config.user)
-		} else {
-			fmt.Printf("FRITZ!Box Admin Password for %s (will be masked): ", config.host)
-		}
-
-		config.adminPassword = fritzutils.GetPasswdFromStdin()
-	}
-
-	if config.adminPassword == "" {
-		log.Fatal("FRITZ!Box admin password required!")
 	}
 
 	return config
