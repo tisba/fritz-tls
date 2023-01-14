@@ -17,17 +17,8 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
+        cache: true
         go-version-file: "go.mod"
-
-    - uses: actions/cache@v3
-      with:
-        path: |
-          ~/go/pkg/mod
-          ~/go/src
-          /home/runner/go/cache
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
 
     - name: Print Go Version
       run: go version
