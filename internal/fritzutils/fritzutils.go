@@ -37,7 +37,7 @@ func CheckCertValidity(url *url.URL, domain string, minValidity time.Duration) (
 		panic("URL cannot be parsed to host and port" + err.Error())
 	}
 
-	conn, err := tls.Dial("tcp", host+":"+port, nil)
+	conn, err := tls.Dial("tcp", host+":"+port, &tls.Config{InsecureSkipVerify: true})
 	if err != nil {
 		panic("Server doesn't support SSL certificate err: " + err.Error())
 	}
