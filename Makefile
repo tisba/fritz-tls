@@ -11,6 +11,7 @@ fmt:
 	go fmt ./...
 
 bootstrap.homebrew:
+	brew install --quiet golangci-lint
 	brew install --quiet golangci/tap/golangci-lint goreleaser
 
 lint:
