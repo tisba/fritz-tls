@@ -70,6 +70,10 @@ fritz-tls --key=./certbot/live/demo.example.com/privkey.pem --fullchain=./certbo
 * `--key` and `--fullchain` to provide the private key and the certificate chain.
 * `--bundle` as an alternative for `--key` and `--fullchain`. The bundle where the password-less private key and certificate are both present.
 
+## Renew Automation
+
+You can use cron (on Linux) or launchd (on macOS) to run `fritz-tls` automatically. By default, it will check if the cert is still valid and only renew if the remaining validity is less then 30 days. Check out https://www.launchd.info to learn how launchd can be used or use https://launched.zerowidth.com to generate a plist file.
+
 ## TODOs and Ideas
 
 These are some things I'd like to to in the future:
