@@ -31,7 +31,7 @@ release:
     name: fritz-tls
 brews:
   -
-    tap:
+    repository:
       owner: tisba
       name: homebrew-taps
     install: bin.install "fritz-tls"
