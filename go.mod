@@ -10,7 +10,7 @@ require (
 	github.com/boombuler/barcode v1.0.1 // indirect
 	github.com/cloudflare/cloudflare-go v0.70.0 // indirect
 	github.com/exoscale/egoscale v0.100.1 // indirect
-	github.com/go-acme/lego/v4 v4.13.2
+	github.com/go-acme/lego/v4 v4.13.3
 	github.com/go-errors/errors v1.1.1 // indirect
 	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/gofrs/uuid v4.0.0+incompatible // indirect
