@@ -9,7 +9,7 @@ require (
 	github.com/boombuler/barcode v1.0.1 // indirect
 	github.com/cloudflare/cloudflare-go v0.70.0 // indirect
 	github.com/exoscale/egoscale v0.100.1 // indirect
-	github.com/go-acme/lego/v4 v4.14.0
+	github.com/go-acme/lego/v4 v4.14.2
 	github.com/go-errors/errors v1.1.1 // indirect
 	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/gofrs/uuid v4.0.0+incompatible // indirect
@@ -106,6 +106,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/namedotcom/go v0.0.0-20180403034216-08470befbe04 // indirect
 	github.com/nrdcg/auroradns v1.1.0 // indirect
+	github.com/nrdcg/bunny-go v0.0.0-20230728143221-c9dda82568d9 // indirect
 	github.com/nrdcg/desec v0.7.0 // indirect
 	github.com/nrdcg/dnspod-go v0.4.0 // indirect
 	github.com/nrdcg/freemyip v0.2.0 // indirect
@@ -115,7 +116,7 @@ require (
 	github.com/nrdcg/porkbun v0.2.0 // indirect
 	github.com/nzdjb/go-metaname v1.0.0 // indirect
 	github.com/oracle/oci-go-sdk v24.3.0+incompatible // indirect
-	github.com/ovh/go-ovh v1.4.1 // indirect
+	github.com/ovh/go-ovh v1.4.2 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -126,7 +127,6 @@ require (
 	github.com/sacloud/iaas-api-go v1.11.1 // indirect
 	github.com/sacloud/packages-go v0.0.9 // indirect
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.17 // indirect
-	github.com/simplesurance/bunny-go v0.0.0-20221115111006-e11d9dc91f04 // indirect
 	github.com/smartystreets/go-aws-auth v0.0.0-20180515143844-0c1422d1fdb9 // indirect
 	github.com/softlayer/softlayer-go v1.1.2 // indirect
 	github.com/softlayer/xmlrpc v0.0.0-20200409220501-5f089df7cb7e // indirect
