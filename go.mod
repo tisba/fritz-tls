@@ -31,7 +31,7 @@ require (
 	golang.org/x/oauth2 v0.9.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/term v0.13.0 // indirect
-	golang.org/x/text v0.13.0
+	golang.org/x/text v0.14.0
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/api v0.114.0 // indirect
 	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
