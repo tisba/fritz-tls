@@ -3,30 +3,30 @@ name: Release
 on:
   push:
     branches-ignore:
-      - '**'
+      - "**"
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
     steps:
-    - name: Check out code
-      uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        cache: true
-        go-version-file: "go.mod"
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          cache: true
+          go-version-file: "go.mod"
 
-    - name: Print Go Version
-      run: go version
+      - name: Print Go Version
+        run: go version
 
-    - name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v5
-      with:
-        version: latest
-        args: release --clean
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN_GORELEASER }}
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v5
+        with:
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_GORELEASER }}
