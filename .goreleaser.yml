@@ -35,6 +35,6 @@ brews:
       owner: tisba
       name: homebrew-taps
     install: bin.install "fritz-tls"
-    folder: Formula
+    directory: Formula
     homepage: "https://github.com/tisba/fritz-tls"
     description: "Automate TLS certificate installation for AVM FRITZ!Box"
