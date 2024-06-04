@@ -72,7 +72,7 @@ fritz-tls --key=./certbot/live/demo.example.com/privkey.pem --fullchain=./certbo
 
 ## Renew Automation
 
-You can use cron (on Linux) or launchd (on macOS) to run `fritz-tls` automatically. By default, it will check if the cert is still valid and only renew if the remaining validity is less then 30 days. Check out https://www.launchd.info to learn how launchd can be used or use https://launched.zerowidth.com to generate a plist file.
+You can use cron (on Linux) or launchd (on macOS) to run `fritz-tls` automatically. By default, it will check if the cert is still valid and only renew if the remaining validity is less then 30 days. Check out <https://www.launchd.info> to learn how launchd can be used or use <https://launched.zerowidth.com> to generate a plist file.
 
 ## TODOs and Ideas
 
