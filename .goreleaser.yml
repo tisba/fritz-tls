@@ -11,8 +11,8 @@ builds:
     - arm64
     - arm
     goarm:
-    - 6
-    - 7
+    - "6"
+    - "7"
 archives:
   - format: zip
     format_overrides:
