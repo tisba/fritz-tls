@@ -78,6 +78,7 @@ You can use cron (on Linux) or launchd (on macOS) to run `fritz-tls` automatical
 
 These are some things I'd like to to in the future:
 
+* support PBKDF2 for authentication, available since FRITZ!OS 7.24
 * add validation for private keys and certificate before uploading (avoid trying to upload garbage)
 * allow password protected private keys (when not provisioned by LE)
 
