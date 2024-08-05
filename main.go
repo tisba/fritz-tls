@@ -21,6 +21,8 @@ var (
 )
 
 type configOptions struct {
+	authcheck bool
+
 	host            string
 	user            string
 	adminPassword   string
@@ -75,6 +77,18 @@ func main() {
 	}
 
 	log.Println("Login successful!")
+
+	if config.authcheck {
+		sessionOk, err := fritz.CheckSession()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if sessionOk {
+			os.Exit(0)
+		} else {
+			log.Fatal("Login did work, but could not verify session!")
+		}
+	}
 
 	// Have we been ask to get a certificate from Let's Encrypt?
 	if config.useAcme {
@@ -164,6 +178,8 @@ func setupConfiguration() (config configOptions) {
 	flag.BoolVar(&config.insecure, "insecure", false, "If host is https:// allow insecure/invalid TLS certificates")
 
 	flag.BoolVar(&manualCert, "manual", false, "Provide certificate manually")
+
+	flag.BoolVar(&config.authcheck, "authcheck", false, "Only check if credentials are valid")
 
 	// ACME-mode
 	flag.StringVar(&config.acmeServer, "acme-server", "https://acme-v02.api.letsencrypt.org/directory", "Server URL of ACME")

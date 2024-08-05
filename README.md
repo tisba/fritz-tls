@@ -42,6 +42,7 @@ General options for `fritz-tls` are:
 * `--host` (default: `http://fritz.box`) to specify how to talk to your FRITZ!Box. If you want to login with username and password, specify the user in the URL: `--host http://tisba@fritz.box:8080`.
 * `--insecure` (optional) to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate.
 * `--verification-url` (optional) to specify what URL to use to check certificate installation. Defaults to `--host`.
+* `--authcheck` (optional) to only check if the provided credentials are valid.
 
 `fritz-tls` can install any TLS certificate or acquire one using [Let's Encrypt](https://letsencrypt.org).
 
