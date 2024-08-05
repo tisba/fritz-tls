@@ -20,3 +20,7 @@ type SessionInfo struct {
 	SID       string `xml:"SID"`
 	Challenge string `xml:"Challenge"`
 }
+
+func (s *SessionInfo) Valid() bool {
+	return s.SID != "0000000000000000"
+}
