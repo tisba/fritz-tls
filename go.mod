@@ -88,7 +88,7 @@ require (
 	github.com/go-viper/mapstructure/v2 v2.0.0 // indirect
 	github.com/goccy/go-json v0.10.3 // indirect
 	github.com/gofrs/flock v0.10.0 // indirect
-	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
+	github.com/golang-jwt/jwt/v4 v4.5.1 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/google/s2a-go v0.1.7 // indirect
