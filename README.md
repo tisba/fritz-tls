@@ -48,6 +48,7 @@ General options for `fritz-tls` are:
 * `--insecure` (optional) to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate, or if your FRITZ!Box has its own self-signed certificate.
 * `--verification-url` (optional) to specify what URL to use to check certificate installation. Defaults to `--host`.
 * `--authcheck` (optional) to only check if the provided credentials are valid.
+* `--version` Print `fritz-tls` version and exit. All other options are ignored.
 
 `fritz-tls` can install any TLS certificate or acquire one using [Let's Encrypt](https://letsencrypt.org).
 
@@ -61,6 +62,7 @@ By default, Let's Encrypt is used to acquire a certificate, options are:
 * `--dns-provider` (default `manual`) to specify one of [lego's](https://github.com/xenolf/lego/tree/master/providers/dns) supported DNS providers. Note that you might have to set environment variables to configure your provider, e.g. `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_HOSTED_ZONE_ID`. I use name servers by AWS/Route53 and [inwx](https://github.com/xenolf/lego/blob/master/providers/dns/inwx/inwx.go), so I have to provide `INWX_USERNAME`, `INWX_PASSWORD`. I'm not sure if there is a overview, so for now you have to consult the [source](https://github.com/xenolf/lego/tree/master/providers/dns).
 * `--dns-resolver` (optional) to specify the resolver to be used for recursive DNS queries. If not provided, the system default will be used. Supported format is `host:port`.
 * `--force-renew` to force a renewal, even if the current certificate is valid for the requested domain and still valid for at least the next 30 days.
+* `--acme-server` (Optional, default `https://acme-v02.api.letsencrypt.org/directory`) The server URL of the ACME server. Use `https://acme-staging-v02.api.letsencrypt.org/directory` for Let's Encrypt staging environment.
 
 ### Manual Certificate Installation
 
