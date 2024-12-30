@@ -241,7 +241,7 @@ func setupConfiguration() (config configOptions) {
 				log.Fatal("--fullchain and --privatekey are both required, unless --bundle is used!")
 			}
 
-			config.certificateBundle = io.MultiReader(fritzutils.ReaderFromFile(config.fullchain), fritzutils.ReaderFromFile(config.privatekey))
+			config.certificateBundle = io.MultiReader(fritzutils.OpenFileWithNewline(config.fullchain), fritzutils.OpenFileWithNewline(config.privatekey))
 		}
 	}
 
