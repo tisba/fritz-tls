@@ -12,7 +12,11 @@ Although it should work with other versions as well, it is only tested with:
 * FRITZ!Box Fon WLAN 7530 (FRITZ!OS: 07.59)
 * FRITZ!Box 7490 (FRITZ!OS: 07.57)
 
-In case you want to know how to do that manually, take a look at AVM's [knowledge base article](https://en.avm.de/service/fritzbox/fritzbox-7390/knowledge-base/publication/show/1525_Importing-your-own-certificate-to-the-FRITZ-Box/).
+In case you want to know how to do that manually, take a look at AVM's knowledge base articles:
+
+* [FRITZ!Box Fon WLAN 7530](https://en.avm.de/service/knowledge-base/dok/FRITZ-Box-7530/1525_Importing-your-own-certificate-to-the-FRITZ-Box/)
+* [FRITZ!Box 7490](https://en.avm.de/service/knowledge-base/dok/FRITZ-Box-7490/1525_Importing-your-own-certificate-to-the-FRITZ-Box/)
+* [FRITZ!Box 7390](https://en.avm.de/service/knowledge-base/dok/FRITZ-Box-7390-int/1525_Importing-your-own-certificate-to-the-FRITZ-Box/)
 
 ## Installation
 
@@ -39,7 +43,7 @@ Done :)
 General options for `fritz-tls` are:
 
 * `--help` to get usage information
-* `--host` (default: `http://fritz.box`) to specify how to talk to your FRITZ!Box. If you want to login with username and password, specify the user in the URL: `--host http://tisba@fritz.box:8080`.
+* `--host` (default: `http://fritz.box`) to specify how to talk to your FRITZ!Box. If you want to login with username and password, specify the user in the URL: `--host http://tisba@fritz.box:8080`. The default username (which is sometimes randomly generated) can be found under `System` > `FRITZ!Box Users`.
 * `--insecure` (optional) to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate.
 * `--verification-url` (optional) to specify what URL to use to check certificate installation. Defaults to `--host`.
 * `--authcheck` (optional) to only check if the provided credentials are valid.
