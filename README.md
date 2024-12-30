@@ -73,6 +73,7 @@ You can also provide a certificate bundle (cert + private key) directly to `frit
 fritz-tls --key=./certbot/live/demo.example.com/privkey.pem --fullchain=./certbot/live/demo.example.com/fullchain.pem
 ```
 
+* `--manual` to use a local
 * `--key` and `--fullchain` to provide the private key and the certificate chain.
 * `--bundle` as an alternative for `--key` and `--fullchain`. The bundle where the password-less private key and certificate are both present.
 
