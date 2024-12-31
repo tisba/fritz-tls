@@ -29,7 +29,7 @@ brew install tisba/taps/fritz-tls
 Go
 
 ```console
-go get -u github.com/tisba/fritz-tls
+go install -ldflags="-s -w" github.com/tisba/fritz-tls@latest
 ```
 
 ## Usage
