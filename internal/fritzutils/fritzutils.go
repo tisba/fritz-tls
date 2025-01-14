@@ -1,6 +1,8 @@
 package fritzutils
 
 import (
+	"bufio"
+	"bytes"
 	"crypto/tls"
 	"io"
 	"log"
@@ -29,6 +31,37 @@ func ReaderFromFile(path string) io.Reader {
 	}
 
 	return reader
+}
+
+func OpenFileWithNewline(path string) io.Reader {
+	file, err := os.OpenFile(path, os.O_RDONLY, 0600)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var buffer bytes.Buffer
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		buffer.WriteString(scanner.Text())
+		buffer.WriteByte('\n') // Preserve existing newlines
+	}
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	content := buffer.Bytes()
+
+	if len(content) == 0 {
+		log.Fatal("Emtpy content for '" + path + "'")
+	}
+
+	// ensure the file ends with a new line
+	if content[len(content)-1] != '\n' {
+		buffer.WriteByte('\n')
+	}
+
+	return &buffer
 }
 
 func CheckCertValidity(url *url.URL, domain string, minValidity time.Duration) (bool, bool, time.Time) {
