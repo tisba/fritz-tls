@@ -5,7 +5,7 @@ BINARY=fritz-tls
 all: build
 
 build:
-	go build -o ${BINARY}
+	go build -ldflags="-s -w" -o ${BINARY}
 
 fmt:
 	go fmt ./...
