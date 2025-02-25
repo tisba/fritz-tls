@@ -14,10 +14,10 @@ builds:
     - "6"
     - "7"
 archives:
-  - format: zip
+  - formats: [ 'zip' ]
     format_overrides:
       - goos: linux
-        format: tar.gz
+        formats: [ 'tar.gz' ]
 snapshot:
   version_template: "{{ .Tag }}-next"
 changelog:
