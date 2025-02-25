@@ -13,6 +13,10 @@ builds:
     goarm:
     - "6"
     - "7"
+    flags:
+    - -trimpath
+    ldflags:
+    - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{ .CommitDate }}
 archives:
   - formats: [ 'zip' ]
     format_overrides:
