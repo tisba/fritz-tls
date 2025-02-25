@@ -231,14 +231,14 @@ func setupConfiguration() (config configOptions) {
 		}
 
 		if config.bundle != "" {
-			log.Fatal("--bundle, --fullchain and --privatekey only work with --manual!")
+			log.Fatal("--bundle, --fullchain and --key only work with --manual!")
 		}
 	} else {
 		if config.bundle != "" {
 			config.certificateBundle = fritzutils.ReaderFromFile(config.bundle)
 		} else {
 			if config.fullchain == "" || config.privatekey == "" {
-				log.Fatal("--fullchain and --privatekey are both required, unless --bundle is used!")
+				log.Fatal("--fullchain and --key are both required, unless --bundle is used!")
 			}
 
 			config.certificateBundle = io.MultiReader(fritzutils.ReaderFromFile(config.fullchain), fritzutils.ReaderFromFile(config.privatekey))
