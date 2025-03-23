@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ $# -ne 3 ]; then
+    echo "Usage: $0 <certificate-bundle-file> <private-key-file> <domain>"
+    exit 1
+fi
+
+CERT_BUNDLE_FILE="$1"
+PRIVATE_KEY_FILE="$2"
+DOMAIN="$3"
+
+# Temporary directory for intermediate files
+TEMP_DIR=$(mktemp -d)
+
+openssl genpkey -algorithm RSA -out "$PRIVATE_KEY_FILE"
+openssl req -x509 -new -key "$PRIVATE_KEY_FILE" -out "$TEMP_DIR/root.crt" -days 3650 -subj "/CN=Test Root CA"
+
+openssl req -new -key "$PRIVATE_KEY_FILE" -out "$TEMP_DIR/domain.csr" -subj "/CN=$DOMAIN"
+openssl x509 -req \
+    -in "$TEMP_DIR/domain.csr" \
+    -CA "$TEMP_DIR/root.crt" \
+    -CAkey "$PRIVATE_KEY_FILE" \
+    -CAcreateserial \
+    -out "$TEMP_DIR/domain.crt" -days 42
+
+# Step 5: Concatenate the root certificate and domain certificate to form the full chain
+cat "$TEMP_DIR/root.crt" "$TEMP_DIR/domain.crt" > "$CERT_BUNDLE_FILE"
+
+rm "$TEMP_DIR/domain.csr" "$TEMP_DIR/domain.crt"
