@@ -2,6 +2,9 @@ package main
 
 import (
 	"bytes"
+	"crypto/x509"
+	"encoding/pem"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -241,7 +244,10 @@ func setupConfiguration() (config configOptions) {
 				log.Fatal("--fullchain and --key are both required, unless --bundle is used!")
 			}
 
-			config.certificateBundle = io.MultiReader(fritzutils.ReaderFromFile(config.fullchain), fritzutils.ReaderFromFile(config.privatekey))
+			config.certificateBundle, err = buildCertificateBundle(config.fullchain, config.privatekey)
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
 
@@ -263,4 +269,81 @@ func setupConfiguration() (config configOptions) {
 	}
 
 	return config
+}
+
+// buildCertificateBundle loads and parses the fullchain and private key files,
+// ensuring they are syntactically valid PEM-formatted certificate and private key.
+// It returns an io.Reader that can be assigned to config.certificateBundle.
+func buildCertificateBundle(fullchainPath, privatekeyPath string) (io.Reader, error) {
+	// Load fullchain file
+	fullchainData, err := os.ReadFile(fullchainPath)
+	if err != nil {
+		return nil, err
+	}
+
+	// Load private key file
+	privatekeyData, err := os.ReadFile(privatekeyPath)
+	if err != nil {
+		return nil, err
+	}
+
+	var certs []*x509.Certificate
+	for {
+		var block *pem.Block
+		block, fullchainData = pem.Decode(fullchainData)
+		if block == nil {
+			break
+		}
+		if block.Type != "CERTIFICATE" {
+			log.Printf("Skipping non-certificate PEM block (%s) in %s\n", block.Type, fullchainPath)
+			continue
+		}
+		cert, err := x509.ParseCertificate(block.Bytes)
+		if err != nil {
+			return nil, err
+		}
+		certs = append(certs, cert)
+	}
+
+	if len(certs) == 0 {
+		return nil, errors.New("no valid certificates found in fullchain")
+	}
+
+	// Parse private key PEM privateKeyBlock
+	privateKeyBlock, _ := pem.Decode(privatekeyData)
+	if privateKeyBlock == nil {
+		return nil, errors.New("failed to decode private key PEM block")
+	}
+
+	_, err = x509.ParsePKCS8PrivateKey(privateKeyBlock.Bytes)
+	if err != nil {
+		_, err = x509.ParsePKCS1PrivateKey(privateKeyBlock.Bytes)
+		if err != nil {
+			_, err = x509.ParseECPrivateKey(privateKeyBlock.Bytes)
+			if err != nil {
+				return nil, errors.New("failed to parse private key")
+			}
+		}
+	}
+
+	// now encode the private key and certificates again
+
+	outputPEM := new(bytes.Buffer)
+
+	err = pem.Encode(outputPEM, privateKeyBlock)
+	if err != nil {
+		return nil, fmt.Errorf("failed to encode private key to PEM: %w", err)
+	}
+
+	for _, cert := range certs {
+		err := pem.Encode(outputPEM, &pem.Block{
+			Type:  "CERTIFICATE",
+			Bytes: cert.Raw,
+		})
+		if err != nil {
+			return nil, fmt.Errorf("failed to encode certificate to PEM: %w", err)
+		}
+	}
+
+	return io.Reader(outputPEM), nil
 }
