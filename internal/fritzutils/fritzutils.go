@@ -34,7 +34,8 @@ func ReaderFromFile(path string) io.Reader {
 func CheckCertValidity(url *url.URL, domain string, minValidity time.Duration) (bool, bool, time.Time) {
 	host, port, err := net.SplitHostPort(url.Host)
 	if err != nil {
-		panic("URL cannot be parsed to host and port" + err.Error())
+		host = url.Host
+		port = "443"
 	}
 
 	conn, err := tls.Dial("tcp", host+":"+port, &tls.Config{InsecureSkipVerify: true})
