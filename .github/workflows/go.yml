@@ -40,7 +40,7 @@ jobs:
         uses: golangci/golangci-lint-action@2226d7cb06a077cd73e56eedd38eecad18e5d837 # v4
 
       - name: Run goreleaser check
-        uses: goreleaser/goreleaser-action@90a3faa9d0182683851fbfa97ca1a2cb983bfca3 # v5
+        uses: goreleaser/goreleaser-action@9c156ee8a17a598857849441385a2041ef570552 # v5
         with:
           version: latest
           args: check
