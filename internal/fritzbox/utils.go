@@ -29,7 +29,7 @@ func (fb *FritzBox) getHTTPClient() *http.Client {
 	}
 
 	if fb.Insecure {
-		tr.TLSClientConfig = &tls.Config{InsecureSkipVerify: true} // nolint: gas
+		tr.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	}
 
 	client := &http.Client{

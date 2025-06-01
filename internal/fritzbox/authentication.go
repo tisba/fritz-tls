@@ -1,7 +1,7 @@
 package fritzbox
 
 import (
-	"crypto/md5" // nolint: gas
+	"crypto/md5"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/xml"
@@ -124,7 +124,7 @@ func buildResponse(challenge string, password string) string {
 func buildResponseMd5(challenge string, password string) string {
 	challengePassword := utf8ToUtf16(challenge + "-" + password)
 
-	md5Response := md5.Sum([]byte(challengePassword)) // nolint: gas
+	md5Response := md5.Sum([]byte(challengePassword))
 
 	return challenge + "-" + fmt.Sprintf("%x", md5Response)
 }
