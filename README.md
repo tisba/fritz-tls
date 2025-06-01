@@ -9,7 +9,7 @@ This is a little pet project to install TLS certificates into your [FRITZ!Box](h
 
 Although it should work with other versions as well, it is only tested with:
 
-* FRITZ!Box Fon WLAN 7530 (FRITZ!OS: 07.59)
+* FRITZ!Box Fon WLAN 7530 (FRITZ!OS: 8.02)
 * FRITZ!Box 7490 (FRITZ!OS: 07.57)
 
 In case you want to know how to do that manually, take a look at AVM's knowledge base articles:
