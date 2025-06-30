@@ -29,12 +29,7 @@ jobs:
         run: go test ./...
 
       - name: gofmt
-        run: |
-          if [ "$(find . -iname '*.go' | xargs gofmt -l)" ]
-          then
-            find . -iname '*.go' | xargs gofmt -d
-            exit 1
-          fi
+        run: gofmt -d .
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@4afd733a84b1f43292c63897423277bb7f4313a9 # v4
