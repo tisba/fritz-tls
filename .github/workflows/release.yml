@@ -1,5 +1,7 @@
 name: Release
 
+permissions: {}
+
 on:
   push:
     branches-ignore:
@@ -14,6 +16,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
+          persist-credentials: false
           fetch-depth: 0
 
       - name: Set up Go
