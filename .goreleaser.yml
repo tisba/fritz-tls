@@ -34,12 +34,19 @@ release:
   github:
     owner: tisba
     name: fritz-tls
-brews:
-  -
-    repository:
-      owner: tisba
-      name: homebrew-taps
-    install: bin.install "fritz-tls"
-    directory: Formula
-    homepage: "https://github.com/tisba/fritz-tls"
-    description: "Automate TLS certificate installation for AVM FRITZ!Box"
+homebrew_casks:
+- name: fritz-tls
+  homepage: "https://github.com/tisba/fritz-tls"
+  description: "Automate TLS certificate installation for AVM FRITZ!Box"
+  repository:
+    owner: tisba
+    name: homebrew-taps
+  conflicts:
+    - formula: fritz-tls
+  hooks:
+    post:
+      install: |
+        if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
+          # replace 'foo' with the actual binary name
+          system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/fritz-tls"]
+        end
