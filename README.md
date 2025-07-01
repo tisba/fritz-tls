@@ -23,7 +23,7 @@ In case you want to know how to do that manually, take a look at AVM's knowledge
 Homebrew:
 
 ```console
-brew install tisba/taps/fritz-tls
+brew install --cask tisba/taps/fritz-tls
 ```
 
 Go
