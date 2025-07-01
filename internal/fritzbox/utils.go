@@ -17,9 +17,10 @@ import (
 )
 
 var tlsInstallationSuccessMessages = []string{
-	"Das SSL-Zertifikat wurde erfolgreich importiert.", // DE
-	"Import of the SSL certificate was successful.",    // EN
-	"Il certificato SSL è stato importato.",            // IT
+	"Das SSL-Zertifikat wurde erfolgreich importiert.",  // DE
+	"Import of the SSL certificate was successful.",     // EN
+	"Il certificato SSL è stato importato.",             // IT
+	"El certificado SSL se ha importado correctamente.", // ES
 }
 
 func (fb *FritzBox) getHTTPClient() *http.Client {
