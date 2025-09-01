@@ -41,8 +41,6 @@ homebrew_casks:
   repository:
     owner: tisba
     name: homebrew-taps
-  conflicts:
-    - formula: fritz-tls
   hooks:
     post:
       install: |
