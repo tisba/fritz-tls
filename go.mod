@@ -22,11 +22,11 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	go.uber.org/ratelimit v0.3.1 // indirect
-	golang.org/x/crypto v0.42.0
-	golang.org/x/net v0.44.0 // indirect
+	golang.org/x/crypto v0.43.0
+	golang.org/x/net v0.45.0 // indirect
 	golang.org/x/oauth2 v0.31.0 // indirect
-	golang.org/x/sys v0.36.0 // indirect
-	golang.org/x/term v0.35.0 // indirect
+	golang.org/x/sys v0.37.0 // indirect
+	golang.org/x/term v0.36.0 // indirect
 	golang.org/x/text v0.30.0
 	golang.org/x/time v0.13.0 // indirect
 	google.golang.org/api v0.249.0 // indirect
