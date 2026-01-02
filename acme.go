@@ -11,6 +11,7 @@ import (
 	"github.com/go-acme/lego/v4/challenge/dns01"
 	"github.com/go-acme/lego/v4/lego"
 	"github.com/go-acme/lego/v4/providers/dns"
+	"github.com/go-acme/lego/v4/providers/dns/manual"
 	"github.com/go-acme/lego/v4/registration"
 )
 
@@ -59,7 +60,7 @@ func getCertificate(caDirURL, domain, mail, dnsProviderName, dnsResolver string)
 	var provider challenge.Provider
 	switch dnsProviderName {
 	case "manual":
-		provider, err = dns01.NewDNSProviderManual()
+		provider, err = manual.NewDNSProvider()
 	default:
 		provider, err = dns.NewDNSChallengeProviderByName(dnsProviderName)
 	}
