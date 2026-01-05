@@ -2,11 +2,13 @@ package fritzutils
 
 import (
 	"crypto/tls"
+	"errors"
 	"io"
 	"log"
 	"net"
 	"net/url"
 	"os"
+	"syscall"
 	"time"
 
 	"github.com/howeyc/gopass"
@@ -38,9 +40,15 @@ func CheckCertValidity(url *url.URL, domain string, minValidity time.Duration) (
 		port = "443"
 	}
 
+	log.Printf("Checking certificate validity of domain %s via %s\n", domain, url)
+
 	conn, err := tls.Dial("tcp", host+":"+port, &tls.Config{InsecureSkipVerify: true})
 	if err != nil {
-		panic("Server doesn't support SSL certificate err: " + err.Error())
+		if errors.Is(err, syscall.ECONNREFUSED) {
+			log.Fatal(err)
+		} else {
+			panic("Server doesn't support SSL certificate err: " + err.Error())
+		}
 	}
 
 	err = conn.VerifyHostname(domain)

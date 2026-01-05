@@ -266,6 +266,15 @@ func setupConfiguration() (config configOptions) {
 		if config.verificationURL.Scheme == "http" {
 			config.verificationURL.Scheme = "https"
 		}
+	} else {
+		config.verificationURL, err = url.Parse(verificationHost)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if config.verificationURL.Scheme == "http" {
+			config.verificationURL.Scheme = "https"
+		}
 	}
 
 	return config
