@@ -46,7 +46,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Run goreleaser check
-        uses: goreleaser/goreleaser-action@e435ccd777264be153ace6237001ef4d979d3a7a # v5
+        uses: goreleaser/goreleaser-action@ec59f474b9834571250b370d4735c50f8e2d1e29 # v5
         with:
           version: latest
           args: check
