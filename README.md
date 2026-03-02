@@ -44,13 +44,17 @@ General options for `fritz-tls` are:
 
 * `--help` to get usage information
 * `--host` (default: `http://fritz.box`) to specify how to talk to your FRITZ!Box. If you want to login with username and password, specify the user in the URL: `--host http://tisba@fritz.box:8080`. The default username (which is sometimes randomly generated) can be found under `System` > `FRITZ!Box Users`.
-* `--password` (optional, default: '') to specify the user's password. If unspecified, `fritz-tls` will prompt the user instead. Alternatively, you may set the environment variable `FRITZTLS_ADMIN_PASS`.
+* `--password` (optional, default: '') to specify the user's password. Alternatively, you may set the environment variable `FRITZTLS_ADMIN_PASS`.
+* `--passwordfile` (optional, default: '') to specify the file containing user's password. Alternatively, you may set the environment variable `FRITZTLS_ADMIN_PASS_FILE`.
 * `--insecure` (optional) to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate, or if your FRITZ!Box has its own self-signed certificate.
 * `--verification-url` (optional) to specify what URL to use to check certificate installation. Defaults to `--host`.
 * `--authcheck` (optional) to only check if the provided credentials are valid.
 * `--version` Print `fritz-tls` version and exit. All other options are ignored.
 
 `fritz-tls` can install any TLS certificate or acquire one using [Let's Encrypt](https://letsencrypt.org).
+
+`fritz-tls` will prompt for password if neither is set via `--password`, `--passwordfile`, or there related environment variables.
+Precedence: CLI options override environment variables, and `--password` overrides `--passwordfile`.
 
 ### Let's Encrypt Mode
 
