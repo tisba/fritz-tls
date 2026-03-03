@@ -3,7 +3,9 @@ fritz-tls
 build/
 dist/
 
+# dev & testing
 *.pem
+fritz-admin-passwd
 
 # Sandbox
 sandbox
