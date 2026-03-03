@@ -10,6 +10,7 @@ import (
 	"os"
 	"syscall"
 	"time"
+	"strings"
 
 	"github.com/howeyc/gopass"
 )
@@ -22,6 +23,20 @@ func GetPasswdFromStdin() string {
 	}
 
 	return string(pass)
+}
+
+func GetPasswdFromFile(path string) string {
+	if path == "" {
+		return ""
+	}
+	data, err := os.ReadFile(path)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	pass := strings.TrimSpace(string(data))
+
+	return pass
 }
 
 func ReaderFromFile(path string) io.Reader {

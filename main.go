@@ -26,11 +26,12 @@ var (
 type configOptions struct {
 	authcheck bool
 
-	host            string
-	user            string
-	adminPassword   string
-	insecure        bool
-	verificationURL *url.URL
+	host							string
+	user            	string
+	adminPassword   	string
+	adminPasswordFile string
+	insecure					bool
+	verificationURL 	*url.URL
 
 	fullchain         string
 	privatekey        string
@@ -158,6 +159,14 @@ func setupAdminPassword(config *configOptions) {
 	}
 
 	if config.adminPassword == "" {
+		if config.adminPasswordFile == "" {
+			config.adminPasswordFile = os.Getenv("FRITZTLS_ADMIN_PASS_FILE")
+		}
+
+		config.adminPassword = fritzutils.GetPasswdFromFile(config.adminPasswordFile)
+	}
+
+	if config.adminPassword == "" {
 		if config.user != "" {
 			fmt.Printf("FRITZ!Box Admin Password for %s as %s (will be masked): ", config.host, config.user)
 		} else {
@@ -178,6 +187,7 @@ func setupConfiguration() (config configOptions) {
 
 	flag.StringVar(&config.host, "host", "http://fritz.box", "FRITZ!Box host")
 	flag.StringVar(&config.adminPassword, "password", "", "FRITZ!Box admin password")
+	flag.StringVar(&config.adminPasswordFile, "password-file", "", "File containing FRITZ!Box admin password")
 	flag.BoolVar(&config.insecure, "insecure", false, "If host is https:// allow insecure/invalid TLS certificates")
 
 	flag.BoolVar(&manualCert, "manual", false, "Provide certificate manually")
