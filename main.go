@@ -26,12 +26,12 @@ var (
 type configOptions struct {
 	authcheck bool
 
-	host							string
-	user            	string
-	adminPassword   	string
+	host              string
+	user              string
+	adminPassword     string
 	adminPasswordFile string
-	insecure					bool
-	verificationURL 	*url.URL
+	insecure          bool
+	verificationURL   *url.URL
 
 	fullchain         string
 	privatekey        string

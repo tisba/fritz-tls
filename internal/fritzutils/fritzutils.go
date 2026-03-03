@@ -8,9 +8,9 @@ import (
 	"net"
 	"net/url"
 	"os"
+	"strings"
 	"syscall"
 	"time"
-	"strings"
 
 	"github.com/howeyc/gopass"
 )
