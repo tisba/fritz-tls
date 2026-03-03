@@ -187,7 +187,7 @@ func setupConfiguration() (config configOptions) {
 
 	flag.StringVar(&config.host, "host", "http://fritz.box", "FRITZ!Box host")
 	flag.StringVar(&config.adminPassword, "password", "", "FRITZ!Box admin password")
-	flag.StringVar(&config.adminPasswordFile, "passwordfile", "", "File containing FRITZ!Box admin password")
+	flag.StringVar(&config.adminPasswordFile, "password-file", "", "File containing FRITZ!Box admin password")
 	flag.BoolVar(&config.insecure, "insecure", false, "If host is https:// allow insecure/invalid TLS certificates")
 
 	flag.BoolVar(&manualCert, "manual", false, "Provide certificate manually")
