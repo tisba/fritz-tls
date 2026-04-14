@@ -6,7 +6,7 @@ require (
 	github.com/Azure/go-autorest/autorest/azure/auth v0.5.13 // indirect
 	github.com/Azure/go-autorest/autorest/to v0.4.1 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
-	github.com/go-acme/lego/v4 v4.32.0
+	github.com/go-acme/lego/v4 v4.33.0
 	github.com/go-errors/errors v1.1.1 // indirect
 	github.com/go-resty/resty/v2 v2.17.1 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
