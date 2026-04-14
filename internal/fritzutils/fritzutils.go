@@ -66,7 +66,7 @@ func CheckCertValidity(url *url.URL, domain string, minValidity time.Duration) (
 			panic("Server doesn't support SSL certificate err: " + err.Error())
 		}
 	}
-	defer conn.Close()
+	defer conn.Close() // nolint: errcheck
 
 	// this is taken from an example at https://pkg.go.dev/crypto/tls#Config
 	cs := conn.ConnectionState()
