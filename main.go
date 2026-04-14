@@ -61,7 +61,7 @@ func main() {
 			os.Exit(0)
 		}
 	} else if (!unexpired || !validDomain) && !config.insecure {
-		log.Fatalf("Current certificate for %s is not valid anymore, please use --insecure if you want to proceed.", config.verificationURL)
+		log.Fatalf("Current certificate for %s is not valid (anymore), please use --insecure if you want to proceed.", config.verificationURL)
 	}
 
 	setupAdminPassword(&config)

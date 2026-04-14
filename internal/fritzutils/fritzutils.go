@@ -2,6 +2,7 @@ package fritzutils
 
 import (
 	"crypto/tls"
+	"crypto/x509"
 	"errors"
 	"io"
 	"log"
@@ -57,7 +58,7 @@ func CheckCertValidity(url *url.URL, domain string, minValidity time.Duration) (
 
 	log.Printf("Checking certificate validity of domain %s via %s\n", domain, url)
 
-	conn, err := tls.Dial("tcp", host+":"+port, &tls.Config{InsecureSkipVerify: true})
+	conn, err := tls.Dial("tcp", host+":"+port, &tls.Config{InsecureSkipVerify: true, ServerName: domain})
 	if err != nil {
 		if errors.Is(err, syscall.ECONNREFUSED) {
 			log.Fatal(err)
@@ -65,11 +66,22 @@ func CheckCertValidity(url *url.URL, domain string, minValidity time.Duration) (
 			panic("Server doesn't support SSL certificate err: " + err.Error())
 		}
 	}
+	defer conn.Close()
 
-	err = conn.VerifyHostname(domain)
+	// this is taken from an example at https://pkg.go.dev/crypto/tls#Config
+	cs := conn.ConnectionState()
+	opts := x509.VerifyOptions{
+		DNSName:       cs.ServerName,
+		Intermediates: x509.NewCertPool(),
+	}
+	for _, cert := range cs.PeerCertificates[1:] {
+		opts.Intermediates.AddCert(cert)
+	}
+	_, err = cs.PeerCertificates[0].Verify(opts)
 	if err != nil {
 		return false, false, time.Time{}
 	}
+
 	expiry := conn.ConnectionState().PeerCertificates[0].NotAfter
 
 	return expiry.After(time.Now().Add(minValidity)), true, expiry
