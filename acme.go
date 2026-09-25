@@ -1,35 +1,37 @@
 package main
 
 import (
+	"context"
 	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
 	"log"
 
-	"github.com/go-acme/lego/v4/certificate"
-	"github.com/go-acme/lego/v4/challenge"
-	"github.com/go-acme/lego/v4/challenge/dns01"
-	"github.com/go-acme/lego/v4/lego"
-	"github.com/go-acme/lego/v4/providers/dns"
-	"github.com/go-acme/lego/v4/providers/dns/manual"
-	"github.com/go-acme/lego/v4/registration"
+	"github.com/go-acme/lego/v5/acme"
+	"github.com/go-acme/lego/v5/certificate"
+	"github.com/go-acme/lego/v5/challenge"
+	"github.com/go-acme/lego/v5/challenge/dns01"
+	"github.com/go-acme/lego/v5/lego"
+	"github.com/go-acme/lego/v5/providers/dns"
+	"github.com/go-acme/lego/v5/providers/dns/manual"
+	"github.com/go-acme/lego/v5/registration"
 )
 
 type acmeUser struct {
 	Email        string
-	Registration *registration.Resource
-	key          crypto.PrivateKey
+	Registration *acme.ExtendedAccount
+	key          crypto.Signer
 }
 
 func (u acmeUser) GetEmail() string {
 	return u.Email
 }
 
-func (u acmeUser) GetRegistration() *registration.Resource {
+func (u acmeUser) GetRegistration() *acme.ExtendedAccount {
 	return u.Registration
 }
 
-func (u acmeUser) GetPrivateKey() crypto.PrivateKey {
+func (u acmeUser) GetPrivateKey() crypto.Signer {
 	return u.key
 }
 
@@ -44,6 +46,12 @@ func getCertificate(caDirURL, domain, mail, dnsProviderName, dnsResolver string)
 		key:   privateKey,
 	}
 
+	request := certificate.ObtainRequest{
+		Domains: []string{domain},
+		Bundle:  true,
+		KeyType: "RSA2048",
+	}
+
 	config := lego.NewConfig(&myUser)
 	config.CADirURL = caDirURL
 
@@ -52,7 +60,7 @@ func getCertificate(caDirURL, domain, mail, dnsProviderName, dnsResolver string)
 		log.Fatal(err)
 	}
 
-	_, err = client.Registration.Register(registration.RegisterOptions{TermsOfServiceAgreed: true})
+	_, err = client.Registration.Register(context.TODO(), registration.RegisterOptions{TermsOfServiceAgreed: true})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -68,22 +76,17 @@ func getCertificate(caDirURL, domain, mail, dnsProviderName, dnsResolver string)
 		return nil, err
 	}
 
-	err = client.Challenge.SetDNS01Provider(provider,
-		dns01.CondOption(
-			dnsResolver != "",
-			dns01.AddRecursiveNameservers(dns01.ParseNameservers([]string{dnsResolver})),
-		),
-	)
+	if dnsResolver != "" {
+		opts := &dns01.Options{RecursiveNameservers: []string{dnsResolver}}
+		dns01.SetDefaultClient(dns01.NewClient((opts)))
+	}
+
+	err = client.Challenge.SetDNS01Provider(provider)
 	if err != nil {
 		return nil, err
 	}
 
-	request := certificate.ObtainRequest{
-		Domains: []string{domain},
-		Bundle:  true,
-	}
-
-	cert, err := client.Certificate.Obtain(request)
+	cert, err := client.Certificate.Obtain(context.TODO(), request)
 	if err != nil {
 		return nil, err
 	}
