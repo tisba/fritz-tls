@@ -30,6 +30,7 @@ type configOptions struct {
 	user              string
 	adminPassword     string
 	adminPasswordFile string
+	adminPasswordCmd  string
 	insecure          bool
 	verificationURL   *url.URL
 
@@ -158,6 +159,7 @@ func setupAdminPassword(config *configOptions) {
 		config.adminPassword = os.Getenv("FRITZTLS_ADMIN_PASS")
 	}
 
+	// password from file?
 	if config.adminPassword == "" {
 		if config.adminPasswordFile == "" {
 			config.adminPasswordFile = os.Getenv("FRITZTLS_ADMIN_PASS_FILE")
@@ -166,6 +168,16 @@ func setupAdminPassword(config *configOptions) {
 		config.adminPassword = fritzutils.GetPasswdFromFile(config.adminPasswordFile)
 	}
 
+	// password from command?
+	if config.adminPassword == "" {
+		if config.adminPasswordCmd == "" {
+			config.adminPasswordCmd = os.Getenv("FRITZTLS_ADMIN_PASS_COMMAND")
+		}
+
+		config.adminPassword = fritzutils.GetPasswdFromCommand(config.adminPasswordCmd)
+	}
+
+	// ask for password
 	if config.adminPassword == "" {
 		if config.user != "" {
 			fmt.Printf("FRITZ!Box Admin Password for %s as %s (will be masked): ", config.host, config.user)
@@ -176,6 +188,7 @@ func setupAdminPassword(config *configOptions) {
 		config.adminPassword = fritzutils.GetPasswdFromStdin()
 	}
 
+	// now we must have a password set, or we have to give up
 	if config.adminPassword == "" {
 		log.Fatal("FRITZ!Box admin password required!")
 	}
@@ -188,6 +201,7 @@ func setupConfiguration() (config configOptions) {
 	flag.StringVar(&config.host, "host", "http://fritz.box", "FRITZ!Box host")
 	flag.StringVar(&config.adminPassword, "password", "", "FRITZ!Box admin password")
 	flag.StringVar(&config.adminPasswordFile, "password-file", "", "File containing FRITZ!Box admin password")
+	flag.StringVar(&config.adminPasswordCmd, "password-command", "", "Command to obtain FRITZ!Box admin password")
 	flag.BoolVar(&config.insecure, "insecure", false, "If host is https:// allow insecure/invalid TLS certificates")
 
 	flag.BoolVar(&manualCert, "manual", false, "Provide certificate manually")

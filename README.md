@@ -44,6 +44,7 @@ General options for `fritz-tls` are:
 * `--host` (default: `http://fritz.box`) to specify how to talk to your FRITZ!Box. If you want to login with username and password, specify the user in the URL: `--host http://tisba@fritz.box:8080`. The default username (which is sometimes randomly generated) can be found under `System` > `FRITZ!Box Users`.
 * `--password` (optional, default: '') to specify the user's password. Alternatively, you may set the environment variable `FRITZTLS_ADMIN_PASS`.
 * `--password-file` (optional, default: '') to specify the file containing user's password. Alternatively, you may set the environment variable `FRITZTLS_ADMIN_PASS_FILE`.
+* `--password-command` (optional, default: '') to specify a command to obtain user's password. Alternatively, you may set the environment variable `FRITZTLS_ADMIN_PASS_COMMAND`.
 * `--insecure` (optional) to skip TLS verification when talking to `--host` in case it's HTTPS and you currently have a broken or expired TLS certificate, or if your FRITZ!Box has its own self-signed certificate.
 * `--verification-url` (optional) to specify what URL to use to check certificate installation. Defaults to `--host`.
 * `--authcheck` (optional) to only check if the provided credentials are valid.

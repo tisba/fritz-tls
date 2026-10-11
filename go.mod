@@ -3,6 +3,7 @@ module github.com/tisba/fritz-tls
 require (
 	github.com/go-acme/lego/v5 v5.5.2
 	github.com/howeyc/gopass v0.0.0-20210920133722-c8aef6fb66ef
+	github.com/mattn/go-shellwords v1.0.16
 	golang.org/x/crypto v0.57.0
 	golang.org/x/text v0.42.0
 )

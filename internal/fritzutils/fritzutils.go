@@ -9,11 +9,13 @@ import (
 	"net"
 	"net/url"
 	"os"
+	"os/exec"
 	"strings"
 	"syscall"
 	"time"
 
 	"github.com/howeyc/gopass"
+	"github.com/mattn/go-shellwords"
 )
 
 func GetPasswdFromStdin() string {
@@ -38,6 +40,27 @@ func GetPasswdFromFile(path string) string {
 	pass := strings.TrimSpace(string(data))
 
 	return pass
+}
+
+func GetPasswdFromCommand(command string) string {
+	if command == "" {
+		return ""
+	}
+
+	args, err := shellwords.Parse(command)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	cmd := exec.Command(args[0], args[1:]...)
+	cmd.Stderr = os.Stderr
+
+	output, err := cmd.Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return strings.TrimSpace(string(output))
 }
 
 func ReaderFromFile(path string) io.Reader {
